@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rancho Viejo — Asado Criollo · Restaurante</title>
+  <style>
+    /* ── Variables ── */
+    :root {
+      --brown:      #5a3a1a;
+      --brown-mid:  #7a5230;
+      --brown-light:#b08050;
+      --cream:      #f5efe6;
+      --cream-dark: #ede4d6;
+      --text:       #3a2810;
+      --white:      #ffffff;
+      --overlay:    rgba(30,15,5,0.55);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-image: url('fondo.png');
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--overlay);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding-bottom: 80px;
+    }
+
+    .hero-logo {
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .hero-logo img {
+      width: 420px;
+      max-width: 88vw;
+      height: auto;
+      display: block;
+      mix-blend-mode: screen;
+    }
+
+    .hero h1 {
+      display: none;
+    }
+
+    .hero-sub {
+      color: rgba(255,255,255,0.80);
+      font-size: 1.05rem;
+      letter-spacing: 4px;
+      margin-top: 10px;
+      text-transform: uppercase;
+      font-style: italic;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 2px;
+      background: rgba(255,255,255,0.5);
+      margin: 22px auto;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .btn {
+      padding: 14px 34px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      border-radius: 2px;
+    }
+
+    .btn-primary {
+      background: var(--white);
+      color: var(--brown);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .btn-primary:hover { background: var(--cream); transform: translateY(-2px); }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+    }
+    .btn-whatsapp:hover { background: #1fb855; transform: translateY(-2px); }
+
+    .hero-info {
+      margin-top: 36px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.88rem;
+      letter-spacing: 1px;
+      line-height: 1.9;
+    }
+
+    /* ── NAV / SCROLL ANCHOR ── */
+    .scroll-down {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .scroll-down span { display: block; font-size: 1.2rem; animation: bounce 2s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    /* ── CARTA SECTION ── */
+    #carta {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 24px 80px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin-bottom: 10px;
+    }
+    .section-title-line {
+      width: 60px;
+      height: 2px;
+      background: var(--brown-light);
+      margin: 0 auto 40px;
+    }
+
+    /* ── CATEGORY TABS ── */
+    .tabs-wrapper {
+      overflow-x: auto;
+      margin-bottom: 30px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      min-width: max-content;
+      padding-bottom: 4px;
+    }
+    .tab-btn {
+      padding: 9px 18px;
+      border: 1.5px solid var(--brown-light);
+      background: transparent;
+      color: var(--brown-mid);
+      font-family: 'Georgia', serif;
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: var(--brown);
+      color: var(--white);
+      border-color: var(--brown);
+    }
+
+    /* ── MENU PANEL ── */
+    .menu-panel { display: none; }
+    .menu-panel.active { display: block; }
+
+    .menu-category-title {
+      font-size: 1.5rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+    .menu-note {
+      font-size: 0.83rem;
+      color: var(--brown-light);
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px dotted #d4c4a8;
+    }
+    .menu-item:last-child { border-bottom: none; }
+
+    .item-left { flex: 1; }
+    .item-name {
+      font-size: 0.88rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: bold;
+    }
+    .item-desc {
+      font-size: 0.8rem;
+      color: var(--brown-mid);
+      font-style: italic;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+    .item-price {
+      font-size: 0.92rem;
+      color: var(--brown);
+      white-space: nowrap;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      min-width: 80px;
+      text-align: right;
+    }
+
+    .plato-compartido {
+      text-align: center;
+      margin: 26px 0 10px;
+      padding: 12px;
+      border: 1.5px solid var(--brown-light);
+      color: var(--brown);
+      font-size: 0.88rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* wines sub-sections */
+    .wine-bodega {
+      margin-top: 28px;
+    }
+    .wine-bodega-name {
+      font-size: 0.82rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      border-bottom: 1px solid var(--brown-light);
+      padding-bottom: 5px;
+      margin-bottom: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      background: var(--brown);
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      padding: 50px 24px 40px;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('fondo.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    footer > * {
+      position: relative;
+      z-index: 1;
+    }
+    footer h3 {
+      font-size: 1.6rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    footer .sub {
+      font-style: italic;
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      margin-bottom: 30px;
+      opacity: 0.7;
+    }
+    footer .contact-row { margin-bottom: 8px; font-size: 0.92rem; }
+    footer a { color: rgba(255,255,255,0.85); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+    footer .footer-divider { width: 50px; height: 1px; background: rgba(255,255,255,0.3); margin: 24px auto; }
+    footer .address { font-size: 0.88rem; opacity: 0.7; letter-spacing: 1px; }
+
+    /* ── CARRUSEL ── */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 10px;
+      padding: 0 10px;
+      transition: transform 0.6s ease;
+    }
+    .carousel-track img {
+      width: 260px;
+      height: 260px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border-radius: 3px;
+      display: block;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      font-size: 1.6rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .carousel-btn:hover { background: rgba(0,0,0,0.8); }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .carousel-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carousel-dots span.active { background: rgba(255,255,255,0.9); }
+    @media (max-width: 700px) {
+      .carousel-track img { width: 180px; height: 180px; }
+    }
+
+    /* ── SECCIÓN PASTAS ── */
+    .pastas-section {
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .pastas-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .pastas-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.80) 40%, rgba(0,0,0,0.20) 100%);
+    }
+    .pastas-info {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 24px 60px;
+      gap: 10px;
+      width: 100%;
+    }
+    .pastas-label {
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      font-style: italic;
+    }
+    .pastas-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white);
+      letter-spacing: 2px;
+      line-height: 1.2;
+      font-family: Georgia, serif;
+    }
+    .pastas-divider {
+      width: 50px;
+      height: 2px;
+      background: rgba(255,255,255,0.5);
+      margin: 6px 0;
+    }
+    .pastas-address {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+    }
+    .pastas-ig {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      margin-top: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .pastas-ig:hover { border-color: var(--white); }
+
+    @media (max-width: 700px) {
+      .pastas-section { min-height: 380px; }
+      .carousel-track img { height: 260px; }
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,5,0,0.82);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      position: relative;
+      max-width: 460px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      border-radius: 4px;
+    }
+    .modal-box img {
+      width: 100%;
+      display: block;
+      border-radius: 4px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      border: none;
+      cursor: pointer;
+      color: white;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover { background: rgba(0,0,0,0.85); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn { width: 260px; justify-content: center; }
+
+      #carta { padding: 50px 16px 60px; }
+
+      .tab-btn { padding: 8px 14px; font-size: 0.72rem; }
+
+      .item-name { font-size: 0.85rem; }
+      .item-desc { font-size: 0.77rem; }
+      .item-price { font-size: 0.88rem; min-width: 70px; }
+
+      .menu-category-title { font-size: 1.2rem; }
+
+      footer { padding: 40px 16px 30px; }
+      footer .contact-row { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════ HERO ════════════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-logo"><img src="logo.png" alt="Rancho Viejo" /></div>
+    <div class="hero-divider"></div>
+
+    <div class="hero-buttons">
+      <button class="btn btn-primary" onclick="openModal()">
+        🍽️ Menú Ejecutivo
+      </button>
+      <a class="btn btn-whatsapp"
+         href="https://wa.me/543513771992?text=Hola!%20Quisiera%20hacer%20una%20reserva%20en%20Rancho%20Viejo"
+         target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.858L.057 23.625a.75.75 0 0 0 .918.918l5.767-1.475A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.68-.512-5.21-1.4l-.374-.22-3.877.99.992-3.877-.22-.374A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        Reservar
+      </a>
+    </div>
+
+    <div class="hero-info">
+      Lun a Jue &nbsp;·&nbsp; 12:30–15:30 &nbsp;|&nbsp; 20:30–23:30<br>
+      Vie y Sáb &nbsp;·&nbsp; 12:30–15:30 &nbsp;|&nbsp; 20:30–00:30<br>
+      Domingos &nbsp;·&nbsp; 12:30–15:30
+    </div>
+  </div>
+
+  <div class="scroll-down" onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})">
+    Ver carta<br><span>▾</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════ CARTA ════════════════════════════ -->
+<section id="carta">
+  <h2 class="section-title">Nuestra Carta</h2>
+  <div class="section-title-line"></div>
+
+  <!-- Tabs -->
+  <div class="tabs-wrapper">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('entradas',this)">Entradas</button>
+      <button class="tab-btn" onclick="showTab('tablas',this)">Tablas</button>
+      <button class="tab-btn" onclick="showTab('ensaladas',this)">Ensaladas</button>
+      <button class="tab-btn" onclick="showTab('cocina-rapida',this)">Cocina Rápida</button>
+      <button class="tab-btn" onclick="showTab('parrilla',this)">Parrilla</button>
+      <button class="tab-btn" onclick="showTab('cocina',this)">Carnes de la Cocina</button>
+      <button class="tab-btn" onclick="showTab('pastas',this)">Pastas</button>
+      <button class="tab-btn" onclick="showTab('guarniciones',this)">Guarniciones</button>
+      <button class="tab-btn" onclick="showTab('postres',this)">Postres</button>
+      <button class="tab-btn" onclick="showTab('bebidas',this)">Bebidas</button>
+      <button class="tab-btn" onclick="showTab('vinos',this)">Vinos</button>
+      <button class="tab-btn" onclick="showTab('espumantes',this)">Espumantes</button>
+    </div>
+  </div>
+
+  <!-- ── ENTRADAS ── -->
+  <div id="tab-entradas" class="menu-panel active">
+    <p class="menu-category-title">Entradas</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Empanada Criolla</div></div><div class="item-price">$ 3.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Empanada de Cebolla y Queso</div></div><div class="item-price">$ 3.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Provoleta a la Parrilla</div></div><div class="item-price">$ 12.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Provoleta con Verduras</div></div><div class="item-price">$ 15.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Jamón Crudo con Palmitos</div></div><div class="item-price">$ 21.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Rabas a la Romana</div></div><div class="item-price">$ 19.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Creppe de Espinaca</div></div><div class="item-price">$ 12.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Pimiento Rojo Relleno</div></div><div class="item-price">$ 9.500</div></div>
+    </div>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+  </div>
+
+  <!-- ── TABLAS ── -->
+  <div id="tab-tablas" class="menu-panel">
+    <p class="menu-category-title">Tablas</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla Rancho Viejo</div><div class="item-desc">Jamón crudo, jamón cocido, salame, lomo de cerdo, frutas secas, tybo, provolone, roquefort y gruyere</div></div><div class="item-price">$ 25.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla Gringa</div><div class="item-desc">Salame y variedad de quesos</div></div><div class="item-price">$ 22.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla Especial</div><div class="item-desc">Jamón crudo, jamón cocido y salame de la Colonia</div></div><div class="item-price">$ 24.400</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla de Quesos</div><div class="item-desc">Provolone, roquefort, tybo, gruyere, fontina y frutas secas</div></div><div class="item-price">$ 24.400</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla de Salame de la Colonia</div></div><div class="item-price">$ 22.500</div></div>
+    </div>
+  </div>
+
+  <!-- ── ENSALADAS ── -->
+  <div id="tab-ensaladas" class="menu-panel">
+    <p class="menu-category-title">Ensaladas Especiales</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Rancho Viejo</div><div class="item-desc">Tomate, zanahoria, chaucha, remolacha, palmitos, alcaucil, queso, arvejas y huevo duro</div></div><div class="item-price">$ 23.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Mediterránea</div><div class="item-desc">Hojas de lechuga, jamón cocido, queso, tomatitos cherry y aceitunas negras</div></div><div class="item-price">$ 21.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Californiana</div><div class="item-desc">Tomate, palta, palmitos, granos de choclo y salsa golf</div></div><div class="item-price">$ 22.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Del César</div><div class="item-desc">Lechuga, queso y pollo en tiras</div></div><div class="item-price">$ 20.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">De Frutos del Mar</div><div class="item-desc">Manzana verde, camarones y apio</div></div><div class="item-price">$ 26.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">De Atún</div><div class="item-desc">Atún, lechuga, huevo duro, aceitunas negras y tomates secos</div></div><div class="item-price">$ 21.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Panache de Verduras</div><div class="item-desc">Remolacha, huevo duro, chaucha, brócoli, papa al natural</div></div><div class="item-price">$ 18.200</div></div>
+    </div>
+  </div>
+
+  <!-- ── COCINA RÁPIDA ── -->
+  <div id="tab-cocina-rapida" class="menu-panel">
+    <p class="menu-category-title">Cocina Rápida</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Milanesa de Ternera</div></div><div class="item-price">$ 18.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Milanesa Napolitana</div></div><div class="item-price">$ 23.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Suprema de Pollo</div></div><div class="item-price">$ 16.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Suprema Napolitana</div></div><div class="item-price">$ 21.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tortilla de Papa</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tortilla Española</div></div><div class="item-price">$ 11.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tortilla de Espinaca</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Omelette de Queso</div></div><div class="item-price">$ 8.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Omelette de Jamón y Queso</div></div><div class="item-price">$ 10.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sandwiches de Cuadril con Papas Fritas</div></div><div class="item-price">$ 25.000</div></div>
+    </div>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+  </div>
+
+  <!-- ── PARRILLA ── -->
+  <div id="tab-parrilla" class="menu-panel">
+    <p class="menu-category-title">Carnes de la Parrilla</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Parrillada Rancho Viejo</div><div class="item-desc">Empanada, chorizo, molleja, chinchulín, cuadril, cerdo, matambre, costilla, chivito, ensalada mixta, papas fritas con huevos revueltos</div></div><div class="item-price">$ 65.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Parrillada Típica</div><div class="item-desc">Empanada, chorizo, molleja, chinchulín, cuadril, cerdo, matambre, costilla, ensalada mixta, papas fritas con huevos revueltos</div></div><div class="item-price">$ 52.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chivito</div></div><div class="item-price">$ 49.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Molleja</div></div><div class="item-price">$ 59.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Matambre de Ternera</div></div><div class="item-price">$ 32.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Matambrito de Cerdo</div></div><div class="item-price">$ 29.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Cuadrilcitos</div></div><div class="item-price">$ 33.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Entrecotte</div></div><div class="item-price">$ 34.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Bife de Lomo</div></div><div class="item-price">$ 36.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Asado de Tira</div></div><div class="item-price">$ 32.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Paillard de Lomo</div></div><div class="item-price">$ 47.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Bife de Chorizo</div></div><div class="item-price">$ 37.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">½ Pollo Deshuesado</div></div><div class="item-price">$ 21.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">¼ Pollo Deshuesado</div></div><div class="item-price">$ 15.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chorizo / Morcilla / Chinchulín</div></div><div class="item-price">$ 15.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brochette de Lomo</div></div><div class="item-price">$ 38.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brochette Mixto</div></div><div class="item-price">$ 34.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brochette de Pollo</div></div><div class="item-price">$ 29.000</div></div>
+    </div>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+  </div>
+
+  <!-- ── CARNES DE LA COCINA ── -->
+  <div id="tab-cocina" class="menu-panel">
+    <p class="menu-category-title">Carnes de la Cocina</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lomo Rancho Viejo</div><div class="item-desc">Al vino blanco con espárragos, alcauciles y papas noisette</div></div><div class="item-price">$ 55.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lomo al Champignon</div><div class="item-desc">Con salsa de champignon y papas españolas</div></div><div class="item-price">$ 48.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lomo a la Pimienta</div><div class="item-desc">Crema de pimienta negra con papas a la crema</div></div><div class="item-price">$ 45.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Entrecotte al Verdeo</div><div class="item-desc">Crema de cebolla de verdeo y papas españolas</div></div><div class="item-price">$ 41.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Mollejitas</div><div class="item-desc">Salteadas al oliva con papas españolas</div></div><div class="item-price">$ 62.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Cerdo del Rancho Viejo</div><div class="item-desc">Al vino tinto con ciruelas</div></div><div class="item-price">$ 36.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Cerdo a la Riojana</div><div class="item-desc">A la plancha con jamón, pimiento, arvejas, huevo y papas regilla</div></div><div class="item-price">$ 33.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Matambrito de Cerdo al Verdeo</div><div class="item-desc">Crema de cebolla de verdeo y papas españolas</div></div><div class="item-price">$ 38.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Matambre a la Pizza</div><div class="item-desc">Con mozzarella, jamón, tomate y papas fritas</div></div><div class="item-price">$ 40.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado del Rancho Viejo</div><div class="item-desc">Al vino blanco con espárragos, alcauciles y papas noisette</div></div><div class="item-price">$ 46.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado al Champignon</div><div class="item-desc">Con salsa de champignon y papas españolas</div></div><div class="item-price">$ 37.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado a la Cereza</div><div class="item-desc">Con cerezas, ananá y papas paille</div></div><div class="item-price">$ 43.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado al Vino Blanco</div><div class="item-desc">Con papas españolas</div></div><div class="item-price">$ 31.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Riñoncitos al Vino Blanco</div><div class="item-desc">Con puré de papas</div></div><div class="item-price">$ 29.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Suprema Pastora</div><div class="item-desc">Arrollado con jamón, morrón, queso, salsa rosa y papa noisette</div></div><div class="item-price">$ 34.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lomito de Atún Grille</div><div class="item-desc">Con verduras salteadas en oliva</div></div><div class="item-price">$ 30.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lenguado Grille</div><div class="item-desc">Con papas a la crema</div></div><div class="item-price">$ 32.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Paella del Rancho</div><div class="item-desc">Frutos del mar con arroz, pollo, pimientos, espárragos y arvejas</div></div><div class="item-price">$ 47.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Trucha del Rancho Viejo</div><div class="item-desc">A la pimienta con papas a la crema</div></div><div class="item-price">$ 38.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Trucha Grille</div><div class="item-desc">Con puré de papas</div></div><div class="item-price">$ 34.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Salmón Rosado</div><div class="item-desc">Al limón con papas a la crema</div></div><div class="item-price">$ 46.000</div></div>
+    </div>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+  </div>
+
+  <!-- ── PASTAS ── -->
+  <div id="tab-pastas" class="menu-panel">
+    <p class="menu-category-title">Pastas Nuestras</p>
+    <p class="menu-note">Las pastas van acompañadas con fileto, crema o mixta</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tallarines del Rancho Viejo</div><div class="item-desc">Salteados con camarones</div></div><div class="item-price">$ 31.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Raviolones Negros</div><div class="item-desc">Rellenos con salmón</div></div><div class="item-price">$ 34.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tallarines al Huevo o de Espinaca</div></div><div class="item-price">$ 18.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ravioles de Carne</div><div class="item-desc">Rellenos de carne y verduras</div></div><div class="item-price">$ 22.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ravioles de Espinaca</div><div class="item-desc">Rellenos de ricota y espinaca</div></div><div class="item-price">$ 22.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Raviolones</div><div class="item-desc">Verduras / 4 Quesos / Pollo y verduras</div></div><div class="item-price">$ 22.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sorrentinos</div><div class="item-desc">Queso y jamón cocido / Capresse / Mozza y hongos</div></div><div class="item-price">$ 27.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sorrentinos de Calabaza</div><div class="item-desc">Salteados en oliva</div></div><div class="item-price">$ 27.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Capelettis</div><div class="item-desc">Pollo con nuez y perejil</div></div><div class="item-price">$ 24.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lasagnas</div><div class="item-desc">Pollo y acelga / Carne, jamón y queso / Verduras</div></div><div class="item-price">$ 31.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Varenikes</div><div class="item-desc">De papa y cebolla</div></div><div class="item-price">$ 24.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Malfatti</div><div class="item-desc">De espinaca y ricota</div></div><div class="item-price">$ 22.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ñoquis de Papa</div></div><div class="item-price">$ 21.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ñoquis Rellenos</div><div class="item-desc">De papa, con queso a las finas hierbas</div></div><div class="item-price">$ 24.500</div></div>
+    </div>
+    <p style="margin-top:22px; font-size:0.88rem; color:var(--brown-mid); font-style:italic;">Salsas especiales: Bolognesa o Pesto $ 4.000 · Cuatro Quesos o Crema con Champignones $ 5.000 · Camarones $ 7.000 · Crema de Espinacas o Parisienne $ 5.000</p>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+  </div>
+
+  <!-- ── GUARNICIONES ── -->
+  <div id="tab-guarniciones" class="menu-panel">
+    <p class="menu-category-title">Guarniciones</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Papas Fritas</div></div><div class="item-price">$ 7.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Revuelto de Papas con Huevo</div></div><div class="item-price">$ 8.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Papas al Natural</div></div><div class="item-price">$ 7.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Papas a la Crema</div></div><div class="item-price">$ 8.600</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Puré de Papas / Calabaza / Mixto</div></div><div class="item-price">$ 7.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Puré de Manzana</div></div><div class="item-price">$ 7.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brócoli Gratinado</div></div><div class="item-price">$ 9.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Espinacas a la Crema</div></div><div class="item-price">$ 9.900</div></div>
+    </div>
+    <p class="menu-category-title" style="margin-top:32px;">Opciones de la Huerta</p>
+    <p class="menu-note">Lechuga, tomate, zanahoria rallada, huevo duro, cebolla, remolacha, chaucha, choclo, apio</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">1 a 2 Opciones</div></div><div class="item-price">$ 7.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">3 Opciones</div></div><div class="item-price">$ 8.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">4 o más Opciones</div></div><div class="item-price">$ 8.600</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Hojas Verdes</div><div class="item-desc">Rúcula y/o berro y/o achicoria</div></div><div class="item-price">$ 7.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Hojas Verdes con Queso</div></div><div class="item-price">$ 8.600</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tomate al Eje con Orégano</div></div><div class="item-price">$ 5.400</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Adición de Palmito, Palta, Tomatitos Cherry</div></div><div class="item-price">$ 5.600</div></div>
+    </div>
+  </div>
+
+  <!-- ── POSTRES ── -->
+  <div id="tab-postres" class="menu-panel">
+    <p class="menu-category-title">Algo Dulce Bien Casero</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Flan de Huevo</div></div><div class="item-price">$ 7.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Budín de Pan</div></div><div class="item-price">$ 7.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Mousse de Chocolate</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brownie de Chocolate</div><div class="item-desc">Con nueces, dulce de leche y helado</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ambrosía</div></div><div class="item-price">$ 7.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Huevos Quimbos</div></div><div class="item-price">$ 7.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sambayón</div></div><div class="item-price">$ 9.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Queso y Dulce</div></div><div class="item-price">$ 7.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Zapallos, Higos o Mamón en Almíbar</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Degustación de Frutos en Almíbar con Queso Tybo p/2</div></div><div class="item-price">$ 16.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Degustación Tradicional p/2</div><div class="item-desc">Flan casero, ambrosía, huevos quimbos</div></div><div class="item-price">$ 15.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ensalada de Frutas</div></div><div class="item-price">$ 7.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Pera al Malbec con Helado</div></div><div class="item-price">$ 9.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Panqueques del Rancho Viejo</div><div class="item-desc">Sambayón, nuez y helado de crema</div></div><div class="item-price">$ 15.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Panqueques de Dulce de Leche</div></div><div class="item-price">$ 15.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Panqueques de Manzana</div></div><div class="item-price">$ 15.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Copa Rancho Viejo</div><div class="item-desc">Ensalada de frutas con helado, nueces y charlotte</div></div><div class="item-price">$ 12.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Helado Mixto</div></div><div class="item-price">$ 7.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Almendrado / Bombón Escocés / Bombón Suizo</div></div><div class="item-price">$ 7.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Don Pedro</div></div><div class="item-price">$ 9.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lemon Champ</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tiramisú</div></div><div class="item-price">$ 9.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chocotorta</div></div><div class="item-price">$ 9.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Porción de Crema / Dulce de Leche / Charlotte</div></div><div class="item-price">$ 2.400</div></div>
+    </div>
+    <p class="menu-category-title" style="margin-top:32px;">Cafetería</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Café</div></div><div class="item-price">$ 3.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Café en Jarrito</div></div><div class="item-price">$ 3.700</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Café Doble</div></div><div class="item-price">$ 4.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Café con Crema</div></div><div class="item-price">$ 4.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Té</div></div><div class="item-price">$ 3.300</div></div>
+    </div>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+  </div>
+
+  <!-- ── BEBIDAS ── -->
+  <div id="tab-bebidas" class="menu-panel">
+    <p class="menu-category-title">Bebidas sin Alcohol</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gaseosa</div></div><div class="item-price">$ 4.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Aguas Saborizadas</div></div><div class="item-price">$ 4.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Jugo de Naranja Natural</div></div><div class="item-price">$ 6.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Agua Mineral con o sin Gas</div></div><div class="item-price">$ 4.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Limonada en Jarra</div></div><div class="item-price">$ 10.900</div></div>
+    </div>
+    <p class="menu-category-title" style="margin-top:30px;">Cervezas</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Corona 330 cc.</div></div><div class="item-price">$ 6.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Corona 710 cc.</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Patagonia 730 cc.</div><div class="item-desc">Consultar variedades</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Stella Artois 1000 cc.</div></div><div class="item-price">$ 11.500</div></div>
+    </div>
+    <p class="menu-category-title" style="margin-top:30px;">Bebidas con Alcohol</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Clericó en Jarra</div></div><div class="item-price">$ 18.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sangría en Jarra</div></div><div class="item-price">$ 18.500</div></div>
+    </div>
+    <p class="menu-category-title" style="margin-top:30px;">Tragos</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gin Tonic</div></div><div class="item-price">$ 11.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gancia</div></div><div class="item-price">$ 7.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gancia Hibiscus Tonic</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gancia Hibiscus Spritz</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Martini Blanco</div></div><div class="item-price">$ 9.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Martini Rosso</div></div><div class="item-price">$ 9.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Fernet Branca con Coca Cola</div></div><div class="item-price">$ 9.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ron Bacardí Oro</div></div><div class="item-price">$ 9.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Negroni</div></div><div class="item-price">$ 9.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Aperol Spritz</div></div><div class="item-price">$ 9.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Campari con Jugo de Naranja</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lemocello</div></div><div class="item-price">$ 5.100</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Whisky Johnny Walker Black Label</div></div><div class="item-price">$ 14.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Whisky Chivas Regal 12 años</div></div><div class="item-price">$ 13.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Whisky Johnnie Walker Red Label</div></div><div class="item-price">$ 12.000</div></div>
+    </div>
+  </div>
+
+  <!-- ── VINOS ── -->
+  <div id="tab-vinos" class="menu-panel">
+    <p class="menu-category-title">Vinos</p>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Zuccardi · Valle de Uco</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Polígonos Malbec</div></div><div class="item-price">$ 37.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Q Malbec</div></div><div class="item-price">$ 29.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Q Cabernet Sauvignon</div></div><div class="item-price">$ 29.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Q Cabernet Franc</div></div><div class="item-price">$ 29.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Serie A Malbec</div></div><div class="item-price">$ 21.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Serie A Bonarda</div></div><div class="item-price">$ 21.000</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Bodega Santa Julia</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Alambrado Malbec Cab. Sauvignon</div></div><div class="item-price">$ 17.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Alambrado Cabernet Sauvignon</div></div><div class="item-price">$ 17.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Alambrado Malbec</div></div><div class="item-price">$ 17.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Malbec</div></div><div class="item-price">$ 13.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Cabernet Sauvignon</div></div><div class="item-price">$ 13.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Cabernet Franc</div></div><div class="item-price">$ 13.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Bonarda</div></div><div class="item-price">$ 13.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Malbec</div></div><div class="item-price">$ 9.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Cabernet Sauvignon</div></div><div class="item-price">$ 9.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Syrah</div></div><div class="item-price">$ 9.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Chenin Dulce Natural</div></div><div class="item-price">$ 11.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Chardonnay</div></div><div class="item-price">$ 9.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Syrah Rosé</div></div><div class="item-price">$ 9.800</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Rutini Wines · Mendoza</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Rutini Malbec</div></div><div class="item-price">$ 43.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Rutini Cabernet Sauvignon Malbec</div></div><div class="item-price">$ 24.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Reserva Malbec</div></div><div class="item-price">$ 19.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Reserva Rosé</div></div><div class="item-price">$ 19.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Malbec</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Cabernet Sauvignon</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Chardonnay</div></div><div class="item-price">$ 16.000</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Bodegas Salentein</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Numina Gran Corte</div></div><div class="item-price">$ 27.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Numina Cabernet Franc</div></div><div class="item-price">$ 25.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Numina Malbec</div></div><div class="item-price">$ 22.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Malbec</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Cabernet Sauvignon</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Chardonnay</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Cabernet Franc</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Barrel Select Malbec Cabernet</div></div><div class="item-price">$ 13.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Killka Malbec</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Killka Blend</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Killka Chardonnay</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Portillo Malbec</div></div><div class="item-price">$ 8.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Portillo Cabernet Sauvignon</div></div><div class="item-price">$ 8.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Portillo Sauvignon Blanc</div></div><div class="item-price">$ 8.500</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Nieto Senetiner</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Cadus Appellation Tupungato Malbec</div></div><div class="item-price">$ 38.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don Nicanor Malbec</div></div><div class="item-price">$ 24.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Nieto Senetiner Malbec</div></div><div class="item-price">$ 14.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Nieto Senetiner Chardonnay</div></div><div class="item-price">$ 14.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Emilia Malbec</div></div><div class="item-price">$ 10.500</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Familia Schroeder</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Schroeder Pinot Noir</div></div><div class="item-price">$ 49.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Barrel Fermented Pinot Noir</div></div><div class="item-price">$ 26.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Select Pinot Noir</div></div><div class="item-price">$ 19.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Select Merlot</div></div><div class="item-price">$ 16.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Select Malbec</div></div><div class="item-price">$ 16.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Pinot Noir</div></div><div class="item-price">$ 15.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Malbec</div></div><div class="item-price">$ 15.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Merlot</div></div><div class="item-price">$ 15.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Sauvignon Blanc</div></div><div class="item-price">$ 15.900</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Escorihuela Gascón</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Pequeñas Producciones Malbec</div></div><div class="item-price">$ 39.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Reserva Malbec</div></div><div class="item-price">$ 23.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Cabernet Franc</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Roble Malbec</div></div><div class="item-price">$ 12.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Malbec</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Cabernet Sauvignon</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Rosé</div></div><div class="item-price">$ 10.500</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Lagarde · Bodega 1897</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Proyecto Hermanas Malbec Cabernet Franc</div></div><div class="item-price">$ 39.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Guarda Cabernet Franc</div></div><div class="item-price">$ 33.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Guarda Malbec DOC</div></div><div class="item-price">$ 33.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Lagarde Malbec</div></div><div class="item-price">$ 17.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Lagarde Cabernet Sauvignon</div></div><div class="item-price">$ 17.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Lagarde Chardonnay</div></div><div class="item-price">$ 14.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Teia Malbec - Petit Verdot</div></div><div class="item-price">$ 14.000</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Catena Zapata</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">El Enemigo Malbec</div></div><div class="item-price">$ 33.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">DV Catena Malbec - Malbec</div></div><div class="item-price">$ 30.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">DV Catena Cabernet Sauvignon - Malbec</div></div><div class="item-price">$ 22.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saint Felicient Malbec</div></div><div class="item-price">$ 15.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saint Felicient Cabernet Franc</div></div><div class="item-price">$ 15.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Nicasia Red Blend Cabernet Franc</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Nicasia Red Blend Malbec</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Álamos Malbec</div></div><div class="item-price">$ 10.500</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Trapiche</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Medalla Malbec</div></div><div class="item-price">$ 39.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Medalla Malbec</div></div><div class="item-price">$ 22.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Medalla Blend</div></div><div class="item-price">$ 22.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Reserva Malbec</div></div><div class="item-price">$ 17.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Reserva Cabernet Franc</div></div><div class="item-price">$ 17.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Varietal Chardonnay</div></div><div class="item-price">$ 13.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Varietal Malbec</div></div><div class="item-price">$ 13.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Chardonnay</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">La Mascota Malbec</div></div><div class="item-price">$ 17.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">La Mascota Rosé</div></div><div class="item-price">$ 17.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Navarro Correa Malbec Colección Privada</div></div><div class="item-price">$ 12.000</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Terrazas de los Andes</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Grand Cabernet Sauvignon</div></div><div class="item-price">$ 89.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Grand Malbec</div></div><div class="item-price">$ 89.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Terr Appellation Malbec Las Compuertas</div></div><div class="item-price">$ 40.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Cabernet Sauvignon</div></div><div class="item-price">$ 32.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Chardonnay</div></div><div class="item-price">$ 32.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 32.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec Rosé</div></div><div class="item-price">$ 32.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Altos del Plata Cabernet Sauvignon</div></div><div class="item-price">$ 19.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Altos del Plata Chardonnay</div></div><div class="item-price">$ 19.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Altos del Plata Malbec / Syrah</div></div><div class="item-price">$ 19.000</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Latitud 33°</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Cabernet Sauvignon</div></div><div class="item-price">$ 14.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Chardonnay</div></div><div class="item-price">$ 14.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Malbec</div></div><div class="item-price">$ 14.000</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Bodega Septima</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Reserva Blend</div></div><div class="item-price">$ 32.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Tierra Malbec Gualtallary</div></div><div class="item-price">$ 21.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Obra Malbec</div></div><div class="item-price">$ 18.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Obra Cabernet Franc</div></div><div class="item-price">$ 18.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Emblema Malbec</div></div><div class="item-price">$ 14.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Emblema Sauvignon Blanc</div></div><div class="item-price">$ 14.500</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Colomé · Desde 1831</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">El Arenal</div></div><div class="item-price">$ 41.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">El Auténtico</div></div><div class="item-price">$ 26.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Estate Malbec</div></div><div class="item-price">$ 22.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Estate Torrontés</div></div><div class="item-price">$ 22.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Amalaya Gran Corte</div></div><div class="item-price">$ 20.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Amalaya Malbec</div></div><div class="item-price">$ 12.000</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Terra Camiare · Bodega</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Ovum Cabernet Franc</div></div><div class="item-price">$ 18.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Ovum Malbec</div></div><div class="item-price">$ 18.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Socavones Reserva Malbec</div></div><div class="item-price">$ 16.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Socavones Reserva Cabernet - Cabernet</div></div><div class="item-price">$ 16.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Navira Malbec</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Indama Rosado de Isabella</div></div><div class="item-price">$ 15.000</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Callia</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Pyros Appellation Malbec</div></div><div class="item-price">$ 19.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Tardio Blanco Dulce</div></div><div class="item-price">$ 9.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Chardonnay</div></div><div class="item-price">$ 9.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Syrah</div></div><div class="item-price">$ 9.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Malbec</div></div><div class="item-price">$ 9.500</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Bodega El Esteco</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">El Esteco Blend de Extremo Malbec</div></div><div class="item-price">$ 22.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Reserva Malbec</div></div><div class="item-price">$ 17.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Reserva Sauvignon Blanc</div></div><div class="item-price">$ 17.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Malbec</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Torrontés</div></div><div class="item-price">$ 13.000</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Finca Las Moras</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Intocables Malbec</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alma Mora Malbec</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alma Mora Viognier Dulce</div></div><div class="item-price">$ 10.500</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Viña Las Perdices</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Exploración Malbec</div></div><div class="item-price">$ 27.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Exploración Albariño</div></div><div class="item-price">$ 24.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alas Colorada Cabernet Franc</div></div><div class="item-price">$ 24.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 19.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Pinot Noir</div></div><div class="item-price">$ 19.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Varietal Malbec</div></div><div class="item-price">$ 13.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Varietal Sauvignon Blanc</div></div><div class="item-price">$ 13.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Varietal Torrontés Dulce</div></div><div class="item-price">$ 13.500</div></div>
+      </div>
+    </div>
+
+    <div class="wine-bodega">
+      <p class="wine-bodega-name">Trivento</p>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Golden Reserva Malbec</div></div><div class="item-price">$ 25.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Golden Reserva Cabernet Sauvignon</div></div><div class="item-price">$ 25.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">White Malbec</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Casillero del Diablo Malbec</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Casillero del Diablo Red Blend</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Casillero del Diablo Chardonnay</div></div><div class="item-price">$ 13.000</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ESPUMANTES ── -->
+  <div id="tab-espumantes" class="menu-panel">
+    <p class="menu-category-title">Espumantes</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Baron B Brut Nature</div></div><div class="item-price">$ 75.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Baron B Extra Brut</div></div><div class="item-price">$ 56.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chandon Cuveé Reserve Blanc de Blancs</div></div><div class="item-price">$ 49.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chandon Extra Brut</div></div><div class="item-price">$ 31.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chandon Delice</div></div><div class="item-price">$ 31.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Nieto Senetiner Brut Nature</div></div><div class="item-price">$ 22.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Blanc de Blancs</div></div><div class="item-price">$ 20.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Salentein Brut Rosé / Brut Nature</div></div><div class="item-price">$ 22.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Classic Cuveé</div></div><div class="item-price">$ 19.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Maria Codorniu Brut Nature / Extra Brut</div></div><div class="item-price">$ 19.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Navarro Correa Extra Brut</div></div><div class="item-price">$ 18.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Alyda Van Salentein Milessime</div></div><div class="item-price">$ 29.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Las Perdices Brut Rosé</div></div><div class="item-price">$ 19.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Las Perdices Método Tradicional Brut Nature</div></div><div class="item-price">$ 28.500</div></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════ CARRUSEL ════════════════════════════ -->
+<section id="galeria" style="background:#1a0f05; padding:60px 0 40px;">
+  <h2 style="text-align:center; color:#f5efe6; font-size:clamp(1.2rem,3vw,1.8rem); letter-spacing:5px; text-transform:uppercase; margin-bottom:30px; font-family:Georgia,serif;">Nuestra Cocina</h2>
+  <div class="carousel-container">
+    <button class="carousel-btn prev" onclick="moveCarousel(-1)">&#8249;</button>
+    <div class="carousel-track" id="carouselTrack">
+      <img src="fotos/_JMG2579.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2631.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2654.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2671.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2692.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2726.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2728.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2738.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2756.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2767.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2778.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2802.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2835.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2866.jpg" alt="Rancho Viejo" />
+      <img src="fotos/_JMG2914.jpg" alt="Rancho Viejo" />
+      <img src="fotos/DSC_4744.jpg" alt="Rancho Viejo" />
+      <img src="fotos/DSC_4755.jpg" alt="Rancho Viejo" />
+      <img src="fotos/DSC_4828.jpg" alt="Rancho Viejo" />
+      <img src="fotos/DSC_4879.jpg" alt="Rancho Viejo" />
+      <img src="fotos/DSC_4887.jpg" alt="Rancho Viejo" />
+      <img src="fotos/DSC_5051.jpg" alt="Rancho Viejo" />
+      <img src="fotos/DSC_5082.jpg" alt="Rancho Viejo" />
+      <img src="fotos/DSC_5371.jpg" alt="Rancho Viejo" />
+    </div>
+    <button class="carousel-btn next" onclick="moveCarousel(1)">&#8250;</button>
+  </div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</section>
+
+<!-- ════════════════════════════ FÁBRICA DE PASTAS ════════════════════════════ -->
+<section class="pastas-section">
+  <img class="pastas-bg" src="pastas.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+  <div class="pastas-info">
+    <p class="pastas-label">Conocé también nuestra</p>
+    <h2 class="pastas-title">Fábrica de Pastas<br>Artesanales</h2>
+    <div class="pastas-divider"></div>
+    <p class="pastas-address">📍 Av. Gauss 5488, Local 5</p>
+    <a class="pastas-ig" href="https://www.instagram.com/pastas.ranchoviejo/" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      @pastas.ranchoviejo
+    </a>
+  </div>
+</section>
+
+<!-- ════════════════════════════ FOOTER ════════════════════════════ -->
+<footer>
+  <img src="logo.png" alt="Rancho Viejo" style="width:220px; max-width:70vw; mix-blend-mode:screen; margin-bottom:16px;" />
+
+  <div class="contact-row">📍 Av. Rogelio Nores Martínez 1900, Córdoba, Argentina</div>
+  <div class="contact-row">📞 <a href="tel:03514683685">0351 · 468 3685</a> &nbsp;|&nbsp; 📱 <a href="tel:3513771992">351 · 377 1992</a></div>
+  <div class="contact-row">✉️ <a href="mailto:restauranteranchoviejo@gmail.com">restauranteranchoviejo@gmail.com</a></div>
+
+  <div class="footer-divider"></div>
+
+  <a class="btn btn-whatsapp"
+     href="https://wa.me/543513771992?text=Hola!%20Quisiera%20hacer%20una%20reserva%20en%20Rancho%20Viejo"
+     target="_blank" rel="noopener"
+     style="display:inline-flex; margin-bottom:24px;">
+    Reservar por WhatsApp
+  </a>
+
+  <p class="address">Eventos · Casamientos · Cumpleaños · Agasajos Empresariales<br>Locro y Empanadas en fechas patrias · Comidas para llevar (10% off)</p>
+</footer>
+
+<!-- ════════════════════════════ MODAL MENÚ EJECUTIVO ════════════════════════════ -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img src="menu-ejecutivo.png" alt="Menú Ejecutivo Rancho Viejo" />
+  </div>
+</div>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function openModal() {
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(e) {
+    if (!e || e.target === document.getElementById('modal') || e.currentTarget.classList.contains('modal-close')) {
+      document.getElementById('modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ── CARRUSEL ──
+  const track = document.getElementById('carouselTrack');
+  const dotsContainer = document.getElementById('carouselDots');
+  const imgs = track.querySelectorAll('img');
+  const total = imgs.length;
+  let current = 0;
+  let autoPlay;
+
+  // Crear dots
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => { clearInterval(autoPlay); goTo(i); startAutoPlay(); });
+    dotsContainer.appendChild(dot);
+  }
+
+  function goTo(index) {
+    current = (index + total) % total;
+    const imgWidth = imgs[0].offsetWidth + 10; // width + gap
+    track.style.transform = `translateX(-${current * imgWidth}px)`;
+    document.querySelectorAll('.carousel-dots span').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function moveCarousel(dir) {
+    clearInterval(autoPlay);
+    goTo(current + dir);
+    startAutoPlay();
+  }
+
+  function startAutoPlay() {
+    autoPlay = setInterval(() => goTo(current + 1), 3500);
+  }
+
+  startAutoPlay();
+</script>
+
+</body>
+</html>
