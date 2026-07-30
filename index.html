@@ -97,34 +97,47 @@
     }
 
     .btn {
-      padding: 14px 34px;
-      border: none;
+      position: relative;
+      padding: 16px 38px;
       cursor: pointer;
       font-family: 'Georgia', serif;
-      font-size: 0.95rem;
-      letter-spacing: 2px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.25s ease;
-      border-radius: 2px;
+      border: none;
+      border-radius: 50px;
     }
 
     .btn-primary {
-      background: var(--white);
+      background: linear-gradient(180deg, #fbf4e6 0%, #e6d3a8 100%);
       color: var(--brown);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      box-shadow: 0 7px 16px rgba(20,10,0,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .btn-primary:hover { background: var(--cream); transform: translateY(-2px); }
+    .btn-primary:hover {
+      background: linear-gradient(180deg, #fffaf0 0%, #efdcb0 100%);
+      transform: translateY(1px);
+      box-shadow: 0 4px 10px rgba(20,10,0,0.3);
+    }
+    .btn-primary:active { transform: translateY(3px); box-shadow: none; }
 
     .btn-whatsapp {
-      background: #25d366;
+      background: linear-gradient(180deg, #2fae5c 0%, #1e7d40 100%);
       color: var(--white);
-      box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+      box-shadow: 0 7px 16px rgba(20,10,0,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .btn-whatsapp:hover { background: #1fb855; transform: translateY(-2px); }
+    .btn-whatsapp:hover {
+      background: linear-gradient(180deg, #34bd65 0%, #228a47 100%);
+      transform: translateY(1px);
+      box-shadow: 0 4px 10px rgba(20,10,0,0.3);
+    }
+    .btn-whatsapp:active { transform: translateY(3px); box-shadow: none; }
 
     .hero-info {
       margin-top: 36px;
@@ -173,41 +186,41 @@
       margin: 0 auto 40px;
     }
 
-    /* ── CATEGORY TABS ── */
-    .tabs-wrapper {
-      overflow-x: auto;
-      margin-bottom: 30px;
-      -webkit-overflow-scrolling: touch;
-    }
-    .tabs {
+    /* ── QUICK NAV (jump links, not tabs — nothing is hidden) ── */
+    .quick-nav {
       display: flex;
-      gap: 8px;
-      min-width: max-content;
-      padding-bottom: 4px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 14px;
+      margin-bottom: 50px;
+      padding: 18px 16px;
+      border-top: 1px solid var(--cream-dark);
+      border-bottom: 1px solid var(--cream-dark);
     }
-    .tab-btn {
-      padding: 9px 18px;
-      border: 1.5px solid var(--brown-light);
-      background: transparent;
+    .quick-nav a {
       color: var(--brown-mid);
-      font-family: 'Georgia', serif;
-      font-size: 0.78rem;
+      text-decoration: none;
+      font-size: 0.76rem;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      cursor: pointer;
-      border-radius: 2px;
       white-space: nowrap;
-      transition: all 0.2s;
+      transition: color 0.2s;
     }
-    .tab-btn:hover, .tab-btn.active {
-      background: var(--brown);
-      color: var(--white);
-      border-color: var(--brown);
-    }
+    .quick-nav a:hover { color: var(--brown); text-decoration: underline; }
 
-    /* ── MENU PANEL ── */
-    .menu-panel { display: none; }
-    .menu-panel.active { display: block; }
+    /* ── MENU PANEL (all categories stacked, nothing hidden) ── */
+    .menu-panel {
+      display: block;
+      padding-top: 46px;
+      margin-top: 46px;
+      border-top: 1px dashed var(--brown-light);
+      scroll-margin-top: 20px;
+    }
+    .menu-panel:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: none;
+    }
 
     .menu-category-title {
       font-size: 1.5rem;
@@ -276,16 +289,29 @@
 
     /* wines sub-sections */
     .wine-bodega {
-      margin-top: 28px;
+      margin-top: 34px;
+    }
+    .wine-bodega-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid var(--brown-light);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+    .wine-bodega-logo {
+      height: 46px;
+      max-width: 170px;
+      width: auto;
+      object-fit: contain;
+      filter: sepia(1) saturate(0.6) brightness(0.75) hue-rotate(-8deg);
+      flex-shrink: 0;
     }
     .wine-bodega-name {
       font-size: 0.82rem;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--brown-light);
-      border-bottom: 1px solid var(--brown-light);
-      padding-bottom: 5px;
-      margin-bottom: 8px;
     }
 
     /* ── FOOTER ── */
@@ -520,13 +546,16 @@
 
       #carta { padding: 50px 16px 60px; }
 
-      .tab-btn { padding: 8px 14px; font-size: 0.72rem; }
+      .quick-nav { gap: 5px 10px; padding: 14px 10px; margin-bottom: 36px; }
+      .quick-nav a { font-size: 0.7rem; }
 
       .item-name { font-size: 0.85rem; }
       .item-desc { font-size: 0.77rem; }
       .item-price { font-size: 0.88rem; min-width: 70px; }
 
       .menu-category-title { font-size: 1.2rem; }
+
+      .wine-bodega-logo { height: 36px; max-width: 130px; }
 
       footer { padding: 40px 16px 30px; }
       footer .contact-row { font-size: 0.85rem; }
@@ -573,49 +602,46 @@
   <h2 class="section-title">Nuestra Carta</h2>
   <div class="section-title-line"></div>
 
-  <!-- Tabs -->
-  <div class="tabs-wrapper">
-    <div class="tabs">
-      <button class="tab-btn active" onclick="showTab('entradas',this)">Entradas</button>
-      <button class="tab-btn" onclick="showTab('tablas',this)">Tablas</button>
-      <button class="tab-btn" onclick="showTab('ensaladas',this)">Ensaladas</button>
-      <button class="tab-btn" onclick="showTab('cocina-rapida',this)">Cocina Rápida</button>
-      <button class="tab-btn" onclick="showTab('parrilla',this)">Parrilla</button>
-      <button class="tab-btn" onclick="showTab('cocina',this)">Carnes de la Cocina</button>
-      <button class="tab-btn" onclick="showTab('pastas',this)">Pastas</button>
-      <button class="tab-btn" onclick="showTab('guarniciones',this)">Guarniciones</button>
-      <button class="tab-btn" onclick="showTab('postres',this)">Postres</button>
-      <button class="tab-btn" onclick="showTab('bebidas',this)">Bebidas</button>
-      <button class="tab-btn" onclick="showTab('vinos',this)">Vinos</button>
-      <button class="tab-btn" onclick="showTab('espumantes',this)">Espumantes</button>
-    </div>
-  </div>
+  <!-- Índice rápido: enlaces de acceso directo, no oculta nada -->
+  <nav class="quick-nav">
+    <a href="#tab-entradas">Entradas</a>
+    <a href="#tab-tablas">Tablas</a>
+    <a href="#tab-ensaladas">Ensaladas</a>
+    <a href="#tab-cocina-rapida">Cocina Rápida</a>
+    <a href="#tab-parrilla">Parrilla</a>
+    <a href="#tab-cocina">Carnes de la Cocina</a>
+    <a href="#tab-pastas">Pastas</a>
+    <a href="#tab-guarniciones">Guarniciones</a>
+    <a href="#tab-postres">Postres</a>
+    <a href="#tab-bebidas">Bebidas</a>
+    <a href="#tab-vinos">Vinos</a>
+    <a href="#tab-espumantes">Espumantes</a>
+  </nav>
 
   <!-- ── ENTRADAS ── -->
-  <div id="tab-entradas" class="menu-panel active">
+  <div id="tab-entradas" class="menu-panel">
     <p class="menu-category-title">Entradas</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Empanada Criolla</div></div><div class="item-price">$ 3.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Empanada de Cebolla y Queso</div></div><div class="item-price">$ 3.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Provoleta a la Parrilla</div></div><div class="item-price">$ 12.800</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Provoleta con Verduras</div></div><div class="item-price">$ 15.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Jamón Crudo con Palmitos</div></div><div class="item-price">$ 21.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Rabas a la Romana</div></div><div class="item-price">$ 19.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Creppe de Espinaca</div></div><div class="item-price">$ 12.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Pimiento Rojo Relleno</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Empanada Criolla</div></div><div class="item-price">$ 3.700</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Empanada de Cebolla y Queso</div></div><div class="item-price">$ 3.700</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Empanada de Jamón y Queso</div></div><div class="item-price">$ 3.700</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Provoleta a la Parrilla</div></div><div class="item-price">$ 13.600</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Provoleta con Verduras</div></div><div class="item-price">$ 16.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Rabas a la Romana</div></div><div class="item-price">$ 20.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Creppe de Espinaca</div></div><div class="item-price">$ 13.700</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Jamón Crudo con Palmitos</div></div><div class="item-price">$ 22.300</div></div>
     </div>
-    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
   </div>
 
   <!-- ── TABLAS ── -->
   <div id="tab-tablas" class="menu-panel">
     <p class="menu-category-title">Tablas</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla Rancho Viejo</div><div class="item-desc">Jamón crudo, jamón cocido, salame, lomo de cerdo, frutas secas, tybo, provolone, roquefort y gruyere</div></div><div class="item-price">$ 25.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla Gringa</div><div class="item-desc">Salame y variedad de quesos</div></div><div class="item-price">$ 22.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla Especial</div><div class="item-desc">Jamón crudo, jamón cocido y salame de la Colonia</div></div><div class="item-price">$ 24.400</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla de Quesos</div><div class="item-desc">Provolone, roquefort, tybo, gruyere, fontina y frutas secas</div></div><div class="item-price">$ 24.400</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla de Salame de la Colonia</div></div><div class="item-price">$ 22.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla Rancho Viejo</div><div class="item-desc">Jamón crudo, jamón cocido, salame, lomo de cerdo, frutas secas, tybo, provolone, roquefort y gruyere</div></div><div class="item-price">$ 27.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla Gringa</div><div class="item-desc">Salame y variedad de quesos</div></div><div class="item-price">$ 24.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla Especial</div><div class="item-desc">Jamón crudo, jamón cocido y salame de la Colonia</div></div><div class="item-price">$ 25.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla de Quesos</div><div class="item-desc">Provolone, roquefort, tybo, gruyere, fontina y frutas secas</div></div><div class="item-price">$ 25.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tabla de Salame de la Colonia</div></div><div class="item-price">$ 23.900</div></div>
     </div>
   </div>
 
@@ -623,13 +649,13 @@
   <div id="tab-ensaladas" class="menu-panel">
     <p class="menu-category-title">Ensaladas Especiales</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Rancho Viejo</div><div class="item-desc">Tomate, zanahoria, chaucha, remolacha, palmitos, alcaucil, queso, arvejas y huevo duro</div></div><div class="item-price">$ 23.300</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Mediterránea</div><div class="item-desc">Hojas de lechuga, jamón cocido, queso, tomatitos cherry y aceitunas negras</div></div><div class="item-price">$ 21.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Californiana</div><div class="item-desc">Tomate, palta, palmitos, granos de choclo y salsa golf</div></div><div class="item-price">$ 22.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Del César</div><div class="item-desc">Lechuga, queso y pollo en tiras</div></div><div class="item-price">$ 20.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">De Frutos del Mar</div><div class="item-desc">Manzana verde, camarones y apio</div></div><div class="item-price">$ 26.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">De Atún</div><div class="item-desc">Atún, lechuga, huevo duro, aceitunas negras y tomates secos</div></div><div class="item-price">$ 21.300</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Panache de Verduras</div><div class="item-desc">Remolacha, huevo duro, chaucha, brócoli, papa al natural</div></div><div class="item-price">$ 18.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Rancho Viejo</div><div class="item-desc">Tomate, zanahoria, chaucha, remolacha, palmitos, alcaucil, queso, arvejas y huevo duro</div></div><div class="item-price">$ 24.700</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Mediterránea</div><div class="item-desc">Hojas de lechuga, jamón cocido, queso, tomatitos cherry y aceitunas negras</div></div><div class="item-price">$ 22.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Californiana</div><div class="item-desc">Tomate, palta, palmitos, granos de choclo y salsa golf</div></div><div class="item-price">$ 23.400</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Del César</div><div class="item-desc">Lechuga, queso y pollo en tiras</div></div><div class="item-price">$ 21.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">De Frutos del Mar</div><div class="item-desc">Manzana verde, camarones y apio</div></div><div class="item-price">$ 27.600</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">De Atún</div><div class="item-desc">Atún, lechuga, huevo duro, aceitunas negras y tomates secos</div></div><div class="item-price">$ 22.600</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Panache de Verduras</div><div class="item-desc">Remolacha, huevo duro, chaucha, brócoli, papa al natural</div></div><div class="item-price">$ 19.300</div></div>
     </div>
   </div>
 
@@ -637,73 +663,73 @@
   <div id="tab-cocina-rapida" class="menu-panel">
     <p class="menu-category-title">Cocina Rápida</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Milanesa de Ternera</div></div><div class="item-price">$ 18.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Milanesa Napolitana</div></div><div class="item-price">$ 23.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Suprema de Pollo</div></div><div class="item-price">$ 16.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Suprema Napolitana</div></div><div class="item-price">$ 21.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tortilla de Papa</div></div><div class="item-price">$ 10.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tortilla Española</div></div><div class="item-price">$ 11.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tortilla de Espinaca</div></div><div class="item-price">$ 10.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Omelette de Queso</div></div><div class="item-price">$ 8.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Omelette de Jamón y Queso</div></div><div class="item-price">$ 10.200</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Sandwiches de Cuadril con Papas Fritas</div></div><div class="item-price">$ 25.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Milanesa de Ternera</div></div><div class="item-price">$ 19.700</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Milanesa Napolitana</div></div><div class="item-price">$ 24.400</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Suprema de Pollo</div></div><div class="item-price">$ 17.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Suprema Napolitana</div></div><div class="item-price">$ 22.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tortilla de Papa</div></div><div class="item-price">$ 11.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tortilla Española</div></div><div class="item-price">$ 12.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tortilla de Espinaca</div></div><div class="item-price">$ 11.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Omelette de Queso</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Omelette de Jamón y Queso</div></div><div class="item-price">$ 10.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sandwiches de Cuadril con Papas Fritas</div></div><div class="item-price">$ 26.500</div></div>
     </div>
-    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.500</div>
   </div>
 
   <!-- ── PARRILLA ── -->
   <div id="tab-parrilla" class="menu-panel">
     <p class="menu-category-title">Carnes de la Parrilla</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Parrillada Rancho Viejo</div><div class="item-desc">Empanada, chorizo, molleja, chinchulín, cuadril, cerdo, matambre, costilla, chivito, ensalada mixta, papas fritas con huevos revueltos</div></div><div class="item-price">$ 65.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Parrillada Típica</div><div class="item-desc">Empanada, chorizo, molleja, chinchulín, cuadril, cerdo, matambre, costilla, ensalada mixta, papas fritas con huevos revueltos</div></div><div class="item-price">$ 52.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Chivito</div></div><div class="item-price">$ 49.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Molleja</div></div><div class="item-price">$ 59.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Matambre de Ternera</div></div><div class="item-price">$ 32.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Matambrito de Cerdo</div></div><div class="item-price">$ 29.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Cuadrilcitos</div></div><div class="item-price">$ 33.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Entrecotte</div></div><div class="item-price">$ 34.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Bife de Lomo</div></div><div class="item-price">$ 36.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Asado de Tira</div></div><div class="item-price">$ 32.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Paillard de Lomo</div></div><div class="item-price">$ 47.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Bife de Chorizo</div></div><div class="item-price">$ 37.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">½ Pollo Deshuesado</div></div><div class="item-price">$ 21.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">¼ Pollo Deshuesado</div></div><div class="item-price">$ 15.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Chorizo / Morcilla / Chinchulín</div></div><div class="item-price">$ 15.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Brochette de Lomo</div></div><div class="item-price">$ 38.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Brochette Mixto</div></div><div class="item-price">$ 34.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Brochette de Pollo</div></div><div class="item-price">$ 29.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Parrillada Rancho Viejo</div><div class="item-desc">Empanada, chorizo, molleja, chinchulín, cuadril, cerdo, matambre, costilla, chivito, ensalada mixta, papas fritas con huevos revueltos</div></div><div class="item-price">$ 68.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Parrillada Típica</div><div class="item-desc">Empanada, chorizo, molleja, chinchulín, cuadril, cerdo, matambre, costilla, ensalada mixta, papas fritas con huevos revueltos</div></div><div class="item-price">$ 55.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Asadito</div><div class="item-desc">Chorizo, chinchulín, cuadril, matambre, ensalada o papas fritas</div></div><div class="item-price">$ 37.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chivito</div></div><div class="item-price">$ 52.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Molleja</div></div><div class="item-price">$ 63.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Matambre de Ternera</div></div><div class="item-price">$ 34.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Matambrito de Cerdo</div></div><div class="item-price">$ 31.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Cuadrilcitos</div></div><div class="item-price">$ 36.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Entrecotte</div></div><div class="item-price">$ 36.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Bife de Lomo</div></div><div class="item-price">$ 39.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Asado de Tira</div></div><div class="item-price">$ 34.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Paillard de Lomo</div></div><div class="item-price">$ 49.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Bife de Chorizo</div></div><div class="item-price">$ 39.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">½ Pollo Deshuesado</div></div><div class="item-price">$ 22.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">¼ Pollo Deshuesado</div></div><div class="item-price">$ 16.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chorizo / Morcilla / Chinchulín</div></div><div class="item-price">$ 16.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brochette de Lomo</div></div><div class="item-price">$ 41.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brochette Mixto</div></div><div class="item-price">$ 36.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brochette de Pollo</div></div><div class="item-price">$ 31.000</div></div>
     </div>
-    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
   </div>
 
   <!-- ── CARNES DE LA COCINA ── -->
   <div id="tab-cocina" class="menu-panel">
     <p class="menu-category-title">Carnes de la Cocina</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Lomo Rancho Viejo</div><div class="item-desc">Al vino blanco con espárragos, alcauciles y papas noisette</div></div><div class="item-price">$ 55.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Lomo al Champignon</div><div class="item-desc">Con salsa de champignon y papas españolas</div></div><div class="item-price">$ 48.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Lomo a la Pimienta</div><div class="item-desc">Crema de pimienta negra con papas a la crema</div></div><div class="item-price">$ 45.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Entrecotte al Verdeo</div><div class="item-desc">Crema de cebolla de verdeo y papas españolas</div></div><div class="item-price">$ 41.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Mollejitas</div><div class="item-desc">Salteadas al oliva con papas españolas</div></div><div class="item-price">$ 62.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Cerdo del Rancho Viejo</div><div class="item-desc">Al vino tinto con ciruelas</div></div><div class="item-price">$ 36.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Cerdo a la Riojana</div><div class="item-desc">A la plancha con jamón, pimiento, arvejas, huevo y papas regilla</div></div><div class="item-price">$ 33.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Matambrito de Cerdo al Verdeo</div><div class="item-desc">Crema de cebolla de verdeo y papas españolas</div></div><div class="item-price">$ 38.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Matambre a la Pizza</div><div class="item-desc">Con mozzarella, jamón, tomate y papas fritas</div></div><div class="item-price">$ 40.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado del Rancho Viejo</div><div class="item-desc">Al vino blanco con espárragos, alcauciles y papas noisette</div></div><div class="item-price">$ 46.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado al Champignon</div><div class="item-desc">Con salsa de champignon y papas españolas</div></div><div class="item-price">$ 37.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado a la Cereza</div><div class="item-desc">Con cerezas, ananá y papas paille</div></div><div class="item-price">$ 43.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado al Vino Blanco</div><div class="item-desc">Con papas españolas</div></div><div class="item-price">$ 31.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Riñoncitos al Vino Blanco</div><div class="item-desc">Con puré de papas</div></div><div class="item-price">$ 29.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Suprema Pastora</div><div class="item-desc">Arrollado con jamón, morrón, queso, salsa rosa y papa noisette</div></div><div class="item-price">$ 34.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Lomito de Atún Grille</div><div class="item-desc">Con verduras salteadas en oliva</div></div><div class="item-price">$ 30.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Lenguado Grille</div><div class="item-desc">Con papas a la crema</div></div><div class="item-price">$ 32.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Paella del Rancho</div><div class="item-desc">Frutos del mar con arroz, pollo, pimientos, espárragos y arvejas</div></div><div class="item-price">$ 47.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Trucha del Rancho Viejo</div><div class="item-desc">A la pimienta con papas a la crema</div></div><div class="item-price">$ 38.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Trucha Grille</div><div class="item-desc">Con puré de papas</div></div><div class="item-price">$ 34.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Salmón Rosado</div><div class="item-desc">Al limón con papas a la crema</div></div><div class="item-price">$ 46.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lomo Rancho Viejo</div><div class="item-desc">Al vino blanco con espárragos, alcauciles y papas noisette</div></div><div class="item-price">$ 58.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lomo al Champignon</div><div class="item-desc">Con salsa de champignon y papas españolas</div></div><div class="item-price">$ 51.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lomo a la Pimienta</div><div class="item-desc">Crema de pimienta negra con papas a la crema</div></div><div class="item-price">$ 48.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Entrecotte al Verdeo</div><div class="item-desc">Crema de cebolla de verdeo y papas españolas</div></div><div class="item-price">$ 43.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Mollejitas</div><div class="item-desc">Salteadas al oliva con papas españolas</div></div><div class="item-price">$ 66.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Cerdo del Rancho Viejo</div><div class="item-desc">Al vino tinto con ciruelas</div></div><div class="item-price">$ 38.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Cerdo a la Riojana</div><div class="item-desc">A la plancha con jamón, pimiento, arvejas, huevo y papas regilla</div></div><div class="item-price">$ 36.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Matambrito de Cerdo al Verdeo</div><div class="item-desc">Crema de cebolla de verdeo y papas españolas</div></div><div class="item-price">$ 40.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Matambre a la Pizza</div><div class="item-desc">Con mozzarella, jamón, tomate y papas fritas</div></div><div class="item-price">$ 42.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Riñoncitos al Vino Blanco</div><div class="item-desc">Con puré de papas</div></div><div class="item-price">$ 31.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado del Rancho Viejo</div><div class="item-desc">Al vino blanco con espárragos, alcauciles y papas noisette</div></div><div class="item-price">$ 48.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado al Champignon</div><div class="item-desc">Con salsa de champignon y papas españolas</div></div><div class="item-price">$ 39.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado a la Cereza</div><div class="item-desc">Con cerezas, ananá y papas paille</div></div><div class="item-price">$ 46.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Deshuesado al Vino Blanco</div><div class="item-desc">Con papas españolas</div></div><div class="item-price">$ 33.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Suprema Pastora</div><div class="item-desc">Arrollado con jamón, morrón, queso, salsa rosa y papa noisette</div></div><div class="item-price">$ 36.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Salmón Rosado</div><div class="item-desc">Al limón con papas a la crema</div></div><div class="item-price">$ 49.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Trucha del Rancho Viejo</div><div class="item-desc">A la pimienta con papas a la crema</div></div><div class="item-price">$ 40.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Trucha Grille</div><div class="item-desc">Con puré de papas</div></div><div class="item-price">$ 36.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lomito de Atún Grille</div><div class="item-desc">Con verduras salteadas en oliva</div></div><div class="item-price">$ 32.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lenguado Grille</div><div class="item-desc">Con papas a la crema</div></div><div class="item-price">$ 34.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Paella del Rancho</div><div class="item-desc">Frutos del mar con arroz, pollo, pimientos, espárragos y arvejas</div></div><div class="item-price">$ 50.500</div></div>
     </div>
-    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.500</div>
   </div>
 
   <!-- ── PASTAS ── -->
@@ -711,130 +737,148 @@
     <p class="menu-category-title">Pastas Nuestras</p>
     <p class="menu-note">Las pastas van acompañadas con fileto, crema o mixta</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tallarines del Rancho Viejo</div><div class="item-desc">Salteados con camarones</div></div><div class="item-price">$ 31.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Raviolones Negros</div><div class="item-desc">Rellenos con salmón</div></div><div class="item-price">$ 34.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tallarines al Huevo o de Espinaca</div></div><div class="item-price">$ 18.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Ravioles de Carne</div><div class="item-desc">Rellenos de carne y verduras</div></div><div class="item-price">$ 22.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Ravioles de Espinaca</div><div class="item-desc">Rellenos de ricota y espinaca</div></div><div class="item-price">$ 22.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Raviolones</div><div class="item-desc">Verduras / 4 Quesos / Pollo y verduras</div></div><div class="item-price">$ 22.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Sorrentinos</div><div class="item-desc">Queso y jamón cocido / Capresse / Mozza y hongos</div></div><div class="item-price">$ 27.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Sorrentinos de Calabaza</div><div class="item-desc">Salteados en oliva</div></div><div class="item-price">$ 27.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Capelettis</div><div class="item-desc">Pollo con nuez y perejil</div></div><div class="item-price">$ 24.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Lasagnas</div><div class="item-desc">Pollo y acelga / Carne, jamón y queso / Verduras</div></div><div class="item-price">$ 31.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Varenikes</div><div class="item-desc">De papa y cebolla</div></div><div class="item-price">$ 24.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Malfatti</div><div class="item-desc">De espinaca y ricota</div></div><div class="item-price">$ 22.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Ñoquis de Papa</div></div><div class="item-price">$ 21.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Ñoquis Rellenos</div><div class="item-desc">De papa, con queso a las finas hierbas</div></div><div class="item-price">$ 24.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tallarines del Rancho Viejo</div><div class="item-desc">Salteados con camarones</div></div><div class="item-price">$ 33.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Raviolones Negros</div><div class="item-desc">Rellenos con salmón</div></div><div class="item-price">$ 36.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tallarines al Huevo o de Espinaca</div></div><div class="item-price">$ 19.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ravioles de Carne</div><div class="item-desc">Rellenos de carne y verduras</div></div><div class="item-price">$ 24.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ravioles de Espinaca</div><div class="item-desc">Rellenos de ricota y espinaca</div></div><div class="item-price">$ 24.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Raviolones</div><div class="item-desc">Verduras / 4 Quesos / Pollo y verduras</div></div><div class="item-price">$ 24.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sorrentinos</div><div class="item-desc">Queso y jamón cocido / Capresse / Mozza y hongos</div></div><div class="item-price">$ 28.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sorrentinos de Calabaza</div><div class="item-desc">Salteados en oliva</div></div><div class="item-price">$ 28.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Capelettis</div><div class="item-desc">Pollo con nuez y perejil</div></div><div class="item-price">$ 26.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lasagnas</div><div class="item-desc">Pollo y acelga / Carne, jamón y queso / Verduras</div></div><div class="item-price">$ 33.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Varenikes</div><div class="item-desc">De papa y cebolla</div></div><div class="item-price">$ 26.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Malfatti</div><div class="item-desc">De espinaca y ricota</div></div><div class="item-price">$ 24.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ñoquis de Papa</div></div><div class="item-price">$ 22.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ñoquis Rellenos</div><div class="item-desc">De papa, con queso a las finas hierbas</div></div><div class="item-price">$ 26.000</div></div>
     </div>
-    <p style="margin-top:22px; font-size:0.88rem; color:var(--brown-mid); font-style:italic;">Salsas especiales: Bolognesa o Pesto $ 4.000 · Cuatro Quesos o Crema con Champignones $ 5.000 · Camarones $ 7.000 · Crema de Espinacas o Parisienne $ 5.000</p>
-    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+    <p class="menu-category-title" style="margin-top:32px;">Salsas Especiales</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Bolognesa o Pesto</div></div><div class="item-price">$ 4.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Cuatro Quesos o Crema con Champignones</div></div><div class="item-price">$ 5.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Camarones</div></div><div class="item-price">$ 7.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Crema de Espinacas o Parisienne</div></div><div class="item-price">$ 5.500</div></div>
+    </div>
   </div>
 
   <!-- ── GUARNICIONES ── -->
   <div id="tab-guarniciones" class="menu-panel">
     <p class="menu-category-title">Guarniciones</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Papas Fritas</div></div><div class="item-price">$ 7.300</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Revuelto de Papas con Huevo</div></div><div class="item-price">$ 8.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Papas al Natural</div></div><div class="item-price">$ 7.300</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Papas a la Crema</div></div><div class="item-price">$ 8.600</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Puré de Papas / Calabaza / Mixto</div></div><div class="item-price">$ 7.300</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Puré de Manzana</div></div><div class="item-price">$ 7.300</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Brócoli Gratinado</div></div><div class="item-price">$ 9.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Espinacas a la Crema</div></div><div class="item-price">$ 9.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Papas Fritas</div></div><div class="item-price">$ 7.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Revuelto de Papas con Huevo</div></div><div class="item-price">$ 9.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Papas al Natural</div></div><div class="item-price">$ 7.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Papas a la Crema</div></div><div class="item-price">$ 9.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Puré de Papas / Calabaza / Mixto</div></div><div class="item-price">$ 7.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Puré de Manzana</div></div><div class="item-price">$ 7.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brócoli Gratinado</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Espinacas a la Crema</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Pimiento Rojo Relleno</div></div><div class="item-price">$ 10.500</div></div>
     </div>
     <p class="menu-category-title" style="margin-top:32px;">Opciones de la Huerta</p>
     <p class="menu-note">Lechuga, tomate, zanahoria rallada, huevo duro, cebolla, remolacha, chaucha, choclo, apio</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">1 a 2 Opciones</div></div><div class="item-price">$ 7.300</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">3 Opciones</div></div><div class="item-price">$ 8.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">4 o más Opciones</div></div><div class="item-price">$ 8.600</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Hojas Verdes</div><div class="item-desc">Rúcula y/o berro y/o achicoria</div></div><div class="item-price">$ 7.300</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Hojas Verdes con Queso</div></div><div class="item-price">$ 8.600</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tomate al Eje con Orégano</div></div><div class="item-price">$ 5.400</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Adición de Palmito, Palta, Tomatitos Cherry</div></div><div class="item-price">$ 5.600</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">1 a 2 Opciones</div></div><div class="item-price">$ 7.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">3 Opciones</div></div><div class="item-price">$ 8.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">4 o más Opciones</div></div><div class="item-price">$ 9.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Hojas Verdes</div><div class="item-desc">Rúcula y/o berro y/o achicoria</div></div><div class="item-price">$ 7.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Hojas Verdes con Queso</div></div><div class="item-price">$ 9.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tomate al Eje con Orégano</div></div><div class="item-price">$ 5.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Adición de Palmito, Palta, Tomatitos Cherry</div></div><div class="item-price">$ 5.900</div></div>
     </div>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.500</div>
   </div>
 
   <!-- ── POSTRES ── -->
   <div id="tab-postres" class="menu-panel">
     <p class="menu-category-title">Algo Dulce Bien Casero</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Flan de Huevo</div></div><div class="item-price">$ 7.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Budín de Pan</div></div><div class="item-price">$ 7.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Mousse de Chocolate</div></div><div class="item-price">$ 9.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Brownie de Chocolate</div><div class="item-desc">Con nueces, dulce de leche y helado</div></div><div class="item-price">$ 10.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Ambrosía</div></div><div class="item-price">$ 7.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Huevos Quimbos</div></div><div class="item-price">$ 7.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Sambayón</div></div><div class="item-price">$ 9.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Queso y Dulce</div></div><div class="item-price">$ 7.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Zapallos, Higos o Mamón en Almíbar</div></div><div class="item-price">$ 10.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Degustación de Frutos en Almíbar con Queso Tybo p/2</div></div><div class="item-price">$ 16.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Degustación Tradicional p/2</div><div class="item-desc">Flan casero, ambrosía, huevos quimbos</div></div><div class="item-price">$ 15.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Ensalada de Frutas</div></div><div class="item-price">$ 7.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Pera al Malbec con Helado</div></div><div class="item-price">$ 9.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Panqueques del Rancho Viejo</div><div class="item-desc">Sambayón, nuez y helado de crema</div></div><div class="item-price">$ 15.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Panqueques de Dulce de Leche</div></div><div class="item-price">$ 15.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Panqueques de Manzana</div></div><div class="item-price">$ 15.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Copa Rancho Viejo</div><div class="item-desc">Ensalada de frutas con helado, nueces y charlotte</div></div><div class="item-price">$ 12.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Helado Mixto</div></div><div class="item-price">$ 7.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Almendrado / Bombón Escocés / Bombón Suizo</div></div><div class="item-price">$ 7.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Don Pedro</div></div><div class="item-price">$ 9.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Lemon Champ</div></div><div class="item-price">$ 9.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Tiramisú</div></div><div class="item-price">$ 9.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Chocotorta</div></div><div class="item-price">$ 9.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Porción de Crema / Dulce de Leche / Charlotte</div></div><div class="item-price">$ 2.400</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Flan de Huevo</div></div><div class="item-price">$ 8.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Budín de Pan</div></div><div class="item-price">$ 8.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Mousse de Chocolate</div></div><div class="item-price">$ 10.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Brownie de Chocolate</div><div class="item-desc">Con nueces, dulce de leche y helado</div></div><div class="item-price">$ 11.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ambrosía</div></div><div class="item-price">$ 8.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Huevos Quimbos</div></div><div class="item-price">$ 8.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sambayón</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Queso y Dulce</div></div><div class="item-price">$ 8.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Zapallos, Higos o Mamón en Almíbar</div></div><div class="item-price">$ 11.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Degustación de Frutos en Almíbar con Queso Tybo p/2</div></div><div class="item-price">$ 17.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Degustación Tradicional p/2</div><div class="item-desc">Flan casero, ambrosía, huevos quimbos</div></div><div class="item-price">$ 16.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ensalada de Frutas</div></div><div class="item-price">$ 8.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Pera al Malbec con Helado</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Panqueques del Rancho Viejo</div><div class="item-desc">Sambayón, nuez y helado de crema</div></div><div class="item-price">$ 16.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Panqueques de Dulce de Leche</div></div><div class="item-price">$ 16.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Panqueques de Manzana</div></div><div class="item-price">$ 16.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Copa Rancho Viejo</div><div class="item-desc">Ensalada de frutas con helado, nueces y charlotte</div></div><div class="item-price">$ 13.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Helado Mixto</div></div><div class="item-price">$ 7.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Almendrado / Bombón Escocés / Bombón Suizo</div></div><div class="item-price">$ 8.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Don Pedro</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lemon Champ</div></div><div class="item-price">$ 10.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Tiramisú</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chocotorta</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Porción de Crema / Dulce de Leche / Charlotte</div></div><div class="item-price">$ 2.700</div></div>
     </div>
     <p class="menu-category-title" style="margin-top:32px;">Cafetería</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Café</div></div><div class="item-price">$ 3.300</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Café en Jarrito</div></div><div class="item-price">$ 3.700</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Café Doble</div></div><div class="item-price">$ 4.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Café con Crema</div></div><div class="item-price">$ 4.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Té</div></div><div class="item-price">$ 3.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Café</div></div><div class="item-price">$ 3.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Café en Jarrito</div></div><div class="item-price">$ 4.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Café Doble</div></div><div class="item-price">$ 4.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Café con Crema</div></div><div class="item-price">$ 4.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Té</div></div><div class="item-price">$ 3.500</div></div>
     </div>
-    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.000</div>
+    <div class="plato-compartido">Plato Compartido &nbsp; $ 8.500</div>
   </div>
 
   <!-- ── BEBIDAS ── -->
   <div id="tab-bebidas" class="menu-panel">
     <p class="menu-category-title">Bebidas sin Alcohol</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Gaseosa</div></div><div class="item-price">$ 4.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Aguas Saborizadas</div></div><div class="item-price">$ 4.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Jugo de Naranja Natural</div></div><div class="item-price">$ 6.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Agua Mineral con o sin Gas</div></div><div class="item-price">$ 4.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Limonada en Jarra</div></div><div class="item-price">$ 10.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gaseosa</div></div><div class="item-price">$ 4.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Aguas Saborizadas</div></div><div class="item-price">$ 4.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Jugo de Naranja Natural</div></div><div class="item-price">$ 7.300</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Agua Mineral con o sin Gas</div></div><div class="item-price">$ 4.800</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Limonada en Jarra</div></div><div class="item-price">$ 11.600</div></div>
     </div>
-    <p class="menu-category-title" style="margin-top:30px;">Cervezas</p>
-    <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Corona 330 cc.</div></div><div class="item-price">$ 6.800</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Corona 710 cc.</div></div><div class="item-price">$ 10.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Patagonia 730 cc.</div><div class="item-desc">Consultar variedades</div></div><div class="item-price">$ 10.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Stella Artois 1000 cc.</div></div><div class="item-price">$ 11.500</div></div>
-    </div>
+
     <p class="menu-category-title" style="margin-top:30px;">Bebidas con Alcohol</p>
-    <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Clericó en Jarra</div></div><div class="item-price">$ 18.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Sangría en Jarra</div></div><div class="item-price">$ 18.500</div></div>
+
+    <div class="wine-bodega">
+      <div class="wine-bodega-header">
+        <img class="wine-bodega-logo" src="fotos/vinos/quilmes.png" alt="Quilmes" style="filter:none;">
+        <p class="wine-bodega-name">Cervezas</p>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-left"><div class="item-name">Corona 330 cc.</div></div><div class="item-price">$ 7.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Corona 710 cc.</div></div><div class="item-price">$ 11.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Patagonia 730 cc.</div><div class="item-desc">Consultar variedades</div></div><div class="item-price">$ 11.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Stella Artois 1000 cc.</div></div><div class="item-price">$ 12.000</div></div>
+      </div>
+    </div>
+
+    <div class="menu-grid" style="margin-top:26px;">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Clericó en Jarra</div></div><div class="item-price">$ 19.600</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Sangría en Jarra</div></div><div class="item-price">$ 19.600</div></div>
     </div>
     <p class="menu-category-title" style="margin-top:30px;">Tragos</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Gin Tonic</div></div><div class="item-price">$ 11.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Gancia</div></div><div class="item-price">$ 7.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Gancia Hibiscus Tonic</div></div><div class="item-price">$ 9.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Gancia Hibiscus Spritz</div></div><div class="item-price">$ 9.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Martini Blanco</div></div><div class="item-price">$ 9.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Martini Rosso</div></div><div class="item-price">$ 9.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Fernet Branca con Coca Cola</div></div><div class="item-price">$ 9.900</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Ron Bacardí Oro</div></div><div class="item-price">$ 9.800</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Negroni</div></div><div class="item-price">$ 9.800</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Aperol Spritz</div></div><div class="item-price">$ 9.800</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Campari con Jugo de Naranja</div></div><div class="item-price">$ 10.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Lemocello</div></div><div class="item-price">$ 5.100</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Whisky Johnny Walker Black Label</div></div><div class="item-price">$ 14.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Whisky Chivas Regal 12 años</div></div><div class="item-price">$ 13.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Whisky Johnnie Walker Red Label</div></div><div class="item-price">$ 12.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gin Tonic</div></div><div class="item-price">$ 12.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gancia</div></div><div class="item-price">$ 8.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gancia Hibiscus Tonic</div></div><div class="item-price">$ 10.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Gancia Hibiscus Spritz</div></div><div class="item-price">$ 10.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Martini Blanco</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Martini Rosso</div></div><div class="item-price">$ 9.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Fernet Branca con Coca Cola</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Ron Bacardí Oro</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Negroni</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Aperol Spritz</div></div><div class="item-price">$ 10.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Campari con Jugo de Naranja</div></div><div class="item-price">$ 11.200</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Lemocello</div></div><div class="item-price">$ 5.500</div></div>
+    </div>
+    <p class="menu-category-title" style="margin-top:30px;">Whisky</p>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-left"><div class="item-name">Whisky Johnny Walker Black Label</div></div><div class="item-price">$ 14.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Whisky Chivas Regal 12 años</div></div><div class="item-price">$ 13.900</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Whisky Johnnie Walker Red Label</div></div><div class="item-price">$ 12.900</div></div>
     </div>
   </div>
 
@@ -843,269 +887,269 @@
     <p class="menu-category-title">Vinos</p>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Zuccardi · Valle de Uco</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/zuccardi.png" alt="Zuccardi · Valle de Uco"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Polígonos Malbec</div></div><div class="item-price">$ 37.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Q Malbec</div></div><div class="item-price">$ 29.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Q Cabernet Sauvignon</div></div><div class="item-price">$ 29.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Q Cabernet Franc</div></div><div class="item-price">$ 29.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Serie A Malbec</div></div><div class="item-price">$ 21.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Serie A Bonarda</div></div><div class="item-price">$ 21.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Polígonos Malbec</div></div><div class="item-price">$ 39.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Q Malbec</div></div><div class="item-price">$ 31.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Q Cabernet Sauvignon</div></div><div class="item-price">$ 31.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Q Cabernet Franc</div></div><div class="item-price">$ 31.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Serie A Malbec</div></div><div class="item-price">$ 22.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Serie A Bonarda</div></div><div class="item-price">$ 22.000</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Bodega Santa Julia</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/santajulia.png" alt="Bodega Santa Julia"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Alambrado Malbec Cab. Sauvignon</div></div><div class="item-price">$ 17.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Alambrado Cabernet Sauvignon</div></div><div class="item-price">$ 17.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Alambrado Malbec</div></div><div class="item-price">$ 17.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Malbec</div></div><div class="item-price">$ 13.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Cabernet Sauvignon</div></div><div class="item-price">$ 13.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Cabernet Franc</div></div><div class="item-price">$ 13.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Bonarda</div></div><div class="item-price">$ 13.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Malbec</div></div><div class="item-price">$ 9.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Cabernet Sauvignon</div></div><div class="item-price">$ 9.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Syrah</div></div><div class="item-price">$ 9.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Chenin Dulce Natural</div></div><div class="item-price">$ 11.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Chardonnay</div></div><div class="item-price">$ 9.800</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Syrah Rosé</div></div><div class="item-price">$ 9.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Alambrado Malbec Cab. Sauvignon</div></div><div class="item-price">$ 18.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Alambrado Cabernet Sauvignon</div></div><div class="item-price">$ 18.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Alambrado Malbec</div></div><div class="item-price">$ 18.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Malbec</div></div><div class="item-price">$ 14.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Cabernet Sauvignon</div></div><div class="item-price">$ 14.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Cabernet Franc</div></div><div class="item-price">$ 14.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Bonarda</div></div><div class="item-price">$ 14.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Chenin Dulce Natural</div></div><div class="item-price">$ 11.600</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Cabernet Sauvignon</div></div><div class="item-price">$ 10.400</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Syrah</div></div><div class="item-price">$ 10.400</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Syrah Rosé</div></div><div class="item-price">$ 10.400</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Chardonnay</div></div><div class="item-price">$ 10.400</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Malbec</div></div><div class="item-price">$ 10.400</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Rutini Wines · Mendoza</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/rutini.png" alt="Rutini Wines · Mendoza"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Rutini Malbec</div></div><div class="item-price">$ 43.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Rutini Cabernet Sauvignon Malbec</div></div><div class="item-price">$ 24.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Reserva Malbec</div></div><div class="item-price">$ 19.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Reserva Rosé</div></div><div class="item-price">$ 19.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Malbec</div></div><div class="item-price">$ 16.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Cabernet Sauvignon</div></div><div class="item-price">$ 16.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Chardonnay</div></div><div class="item-price">$ 16.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Rutini Malbec</div></div><div class="item-price">$ 45.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Rutini Cabernet Sauvignon Malbec</div></div><div class="item-price">$ 25.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Reserva Malbec</div></div><div class="item-price">$ 19.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Reserva Rosé</div></div><div class="item-price">$ 19.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Malbec</div></div><div class="item-price">$ 16.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Cabernet Sauvignon</div></div><div class="item-price">$ 16.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Trumpeter Chardonnay</div></div><div class="item-price">$ 16.900</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Bodegas Salentein</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/salentein.png" alt="Bodegas Salentein"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Numina Gran Corte</div></div><div class="item-price">$ 27.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Numina Cabernet Franc</div></div><div class="item-price">$ 25.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Numina Malbec</div></div><div class="item-price">$ 22.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Malbec</div></div><div class="item-price">$ 16.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Cabernet Sauvignon</div></div><div class="item-price">$ 16.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Chardonnay</div></div><div class="item-price">$ 16.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Cabernet Franc</div></div><div class="item-price">$ 16.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Barrel Select Malbec Cabernet</div></div><div class="item-price">$ 13.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Killka Malbec</div></div><div class="item-price">$ 10.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Killka Blend</div></div><div class="item-price">$ 10.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Killka Chardonnay</div></div><div class="item-price">$ 10.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Portillo Malbec</div></div><div class="item-price">$ 8.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Portillo Cabernet Sauvignon</div></div><div class="item-price">$ 8.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Portillo Sauvignon Blanc</div></div><div class="item-price">$ 8.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Numina Gran Corte</div></div><div class="item-price">$ 28.400</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Numina Cabernet Franc</div></div><div class="item-price">$ 26.400</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Numina Malbec</div></div><div class="item-price">$ 23.400</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Malbec</div></div><div class="item-price">$ 16.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Cabernet Sauvignon</div></div><div class="item-price">$ 16.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Chardonnay</div></div><div class="item-price">$ 16.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserve Cabernet Franc</div></div><div class="item-price">$ 16.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Barrel Select Malbec Cabernet</div></div><div class="item-price">$ 14.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Killka Art & Wine Malbec</div></div><div class="item-price">$ 11.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Killka Art & Wine Blend</div></div><div class="item-price">$ 11.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Killka Art & Wine Chardonnay</div></div><div class="item-price">$ 11.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Portillo Malbec</div></div><div class="item-price">$ 9.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Portillo Cabernet Sauvignon</div></div><div class="item-price">$ 9.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Portillo Sauvignon Blanc</div></div><div class="item-price">$ 9.000</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Nieto Senetiner</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/nietosenetiner.png" alt="Nieto Senetiner"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Cadus Appellation Tupungato Malbec</div></div><div class="item-price">$ 38.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Don Nicanor Malbec</div></div><div class="item-price">$ 24.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Nieto Senetiner Malbec</div></div><div class="item-price">$ 14.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Nieto Senetiner Chardonnay</div></div><div class="item-price">$ 14.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Emilia Malbec</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Cadus Appellation Tupungato Malbec</div></div><div class="item-price">$ 39.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don Nicanor Malbec</div></div><div class="item-price">$ 25.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Nieto Senetiner Malbec</div></div><div class="item-price">$ 14.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Nieto Senetiner Chardonnay</div></div><div class="item-price">$ 14.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Emilia Malbec</div></div><div class="item-price">$ 11.000</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Familia Schroeder</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/schroeder.png" alt="Familia Schroeder"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Schroeder Pinot Noir</div></div><div class="item-price">$ 49.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Barrel Fermented Pinot Noir</div></div><div class="item-price">$ 26.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Select Pinot Noir</div></div><div class="item-price">$ 19.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Select Merlot</div></div><div class="item-price">$ 16.200</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Select Malbec</div></div><div class="item-price">$ 16.200</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Pinot Noir</div></div><div class="item-price">$ 15.900</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Malbec</div></div><div class="item-price">$ 15.900</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Merlot</div></div><div class="item-price">$ 15.900</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Sauvignon Blanc</div></div><div class="item-price">$ 15.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Schroeder Pinot Noir</div></div><div class="item-price">$ 51.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Barrel Fermented Pinot Noir</div></div><div class="item-price">$ 28.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Select Pinot Noir</div></div><div class="item-price">$ 20.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Select Merlot</div></div><div class="item-price">$ 17.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Select Malbec</div></div><div class="item-price">$ 17.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Pinot Noir</div></div><div class="item-price">$ 16.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Malbec</div></div><div class="item-price">$ 16.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Merlot</div></div><div class="item-price">$ 16.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saurus Estate Sauvignon Blanc</div></div><div class="item-price">$ 16.700</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Escorihuela Gascón</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/escorihuela.png" alt="Escorihuela Gascón"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Pequeñas Producciones Malbec</div></div><div class="item-price">$ 39.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Reserva Malbec</div></div><div class="item-price">$ 23.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 16.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Cabernet Franc</div></div><div class="item-price">$ 16.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Roble Malbec</div></div><div class="item-price">$ 12.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Malbec</div></div><div class="item-price">$ 10.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Cabernet Sauvignon</div></div><div class="item-price">$ 10.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Rosé</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Pequeñas Producciones Malbec</div></div><div class="item-price">$ 40.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Reserva Malbec</div></div><div class="item-price">$ 24.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 16.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Cabernet Franc</div></div><div class="item-price">$ 16.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Roble Malbec</div></div><div class="item-price">$ 12.600</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Malbec</div></div><div class="item-price">$ 11.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Cabernet Sauvignon</div></div><div class="item-price">$ 11.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Familia Gascón Rosé</div></div><div class="item-price">$ 11.000</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Lagarde · Bodega 1897</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/lagarde.png" alt="Lagarde · Bodega 1897"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Proyecto Hermanas Malbec Cabernet Franc</div></div><div class="item-price">$ 39.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Guarda Cabernet Franc</div></div><div class="item-price">$ 33.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Guarda Malbec DOC</div></div><div class="item-price">$ 33.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Lagarde Malbec</div></div><div class="item-price">$ 17.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Lagarde Cabernet Sauvignon</div></div><div class="item-price">$ 17.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Lagarde Chardonnay</div></div><div class="item-price">$ 14.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Teia Malbec - Petit Verdot</div></div><div class="item-price">$ 14.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Proyecto Hermanas Malbec Cabernet Franc</div></div><div class="item-price">$ 41.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Guarda Cabernet Franc</div></div><div class="item-price">$ 34.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Guarda Malbec DOC</div></div><div class="item-price">$ 34.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Lagarde Malbec</div></div><div class="item-price">$ 17.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Lagarde Cabernet Sauvignon</div></div><div class="item-price">$ 17.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Lagarde Chardonnay</div></div><div class="item-price">$ 17.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Teia Malbec - Petit Verdot</div></div><div class="item-price">$ 14.800</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Catena Zapata</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/catenazapata.png" alt="Catena Zapata"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">El Enemigo Malbec</div></div><div class="item-price">$ 33.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">DV Catena Malbec - Malbec</div></div><div class="item-price">$ 30.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">DV Catena Cabernet Sauvignon - Malbec</div></div><div class="item-price">$ 22.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saint Felicient Malbec</div></div><div class="item-price">$ 15.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Saint Felicient Cabernet Franc</div></div><div class="item-price">$ 15.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Nicasia Red Blend Cabernet Franc</div></div><div class="item-price">$ 13.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Nicasia Red Blend Malbec</div></div><div class="item-price">$ 13.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Álamos Malbec</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">El Enemigo Malbec</div></div><div class="item-price">$ 34.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">DV Catena Malbec - Malbec</div></div><div class="item-price">$ 31.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">DV Catena Cabernet Sauvignon - Malbec</div></div><div class="item-price">$ 23.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saint Felicient Malbec</div></div><div class="item-price">$ 16.400</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Saint Felicient Cabernet Franc</div></div><div class="item-price">$ 16.400</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Nicasia Red Blend Cabernet Franc</div></div><div class="item-price">$ 13.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Nicasia Red Blend Malbec</div></div><div class="item-price">$ 13.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Álamos Malbec</div></div><div class="item-price">$ 11.000</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Trapiche</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/trapiche.png" alt="Trapiche"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Medalla Malbec</div></div><div class="item-price">$ 39.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Medalla Malbec</div></div><div class="item-price">$ 22.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Medalla Blend</div></div><div class="item-price">$ 22.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Reserva Malbec</div></div><div class="item-price">$ 17.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Reserva Cabernet Franc</div></div><div class="item-price">$ 17.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Varietal Chardonnay</div></div><div class="item-price">$ 13.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Varietal Malbec</div></div><div class="item-price">$ 13.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 13.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Chardonnay</div></div><div class="item-price">$ 13.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">La Mascota Malbec</div></div><div class="item-price">$ 17.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">La Mascota Rosé</div></div><div class="item-price">$ 17.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Navarro Correa Malbec Colección Privada</div></div><div class="item-price">$ 12.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Medalla Malbec</div></div><div class="item-price">$ 41.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Medalla Malbec</div></div><div class="item-price">$ 23.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Medalla Blend</div></div><div class="item-price">$ 23.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Reserva Malbec</div></div><div class="item-price">$ 17.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Reserva Cabernet Franc</div></div><div class="item-price">$ 17.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Varietal Chardonnay</div></div><div class="item-price">$ 14.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Fond de Cave Varietal Malbec</div></div><div class="item-price">$ 14.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Chardonnay</div></div><div class="item-price">$ 13.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 13.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">La Mascota Malbec</div></div><div class="item-price">$ 18.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">La Mascota Rosé</div></div><div class="item-price">$ 18.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Navarro Correa Malbec Colección Privada</div></div><div class="item-price">$ 12.600</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Terrazas de los Andes</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/terracamiare.png" alt="Terra Camiare · Bodega"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Grand Cabernet Sauvignon</div></div><div class="item-price">$ 89.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Grand Malbec</div></div><div class="item-price">$ 89.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Terr Appellation Malbec Las Compuertas</div></div><div class="item-price">$ 40.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Cabernet Sauvignon</div></div><div class="item-price">$ 32.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Chardonnay</div></div><div class="item-price">$ 32.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 32.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec Rosé</div></div><div class="item-price">$ 32.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Altos del Plata Cabernet Sauvignon</div></div><div class="item-price">$ 19.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Altos del Plata Chardonnay</div></div><div class="item-price">$ 19.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Altos del Plata Malbec / Syrah</div></div><div class="item-price">$ 19.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Ovum Cabernet Franc</div></div><div class="item-price">$ 19.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Ovum Malbec</div></div><div class="item-price">$ 19.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Socavones Reserva Malbec</div></div><div class="item-price">$ 17.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Socavones Reserva Cabernet - Cabernet</div></div><div class="item-price">$ 17.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Navira Malbec</div></div><div class="item-price">$ 13.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Indama Rosado de Isabella</div></div><div class="item-price">$ 15.600</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Latitud 33°</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/callia.png" alt="Callia"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Cabernet Sauvignon</div></div><div class="item-price">$ 14.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Chardonnay</div></div><div class="item-price">$ 14.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Malbec</div></div><div class="item-price">$ 14.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Pyros Appellation Malbec</div></div><div class="item-price">$ 19.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Tardío Blanco Dulce</div></div><div class="item-price">$ 10.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Chardonnay</div></div><div class="item-price">$ 10.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Syrah</div></div><div class="item-price">$ 10.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Malbec</div></div><div class="item-price">$ 10.000</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Bodega Septima</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/elesteco.png" alt="Bodega El Esteco"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Reserva Blend</div></div><div class="item-price">$ 32.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Tierra Malbec Gualtallary</div></div><div class="item-price">$ 21.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Obra Malbec</div></div><div class="item-price">$ 18.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Obra Cabernet Franc</div></div><div class="item-price">$ 18.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Emblema Malbec</div></div><div class="item-price">$ 14.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Emblema Sauvignon Blanc</div></div><div class="item-price">$ 14.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">El Esteco Blend de Extremo Malbec</div></div><div class="item-price">$ 23.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Reserva Malbec</div></div><div class="item-price">$ 18.300</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Reserva Sauvignon Blanc</div></div><div class="item-price">$ 18.300</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Malbec</div></div><div class="item-price">$ 13.600</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Torrontés</div></div><div class="item-price">$ 13.600</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Colomé · Desde 1831</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/lasmoras.png" alt="Finca Las Moras"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">El Arenal</div></div><div class="item-price">$ 41.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">El Auténtico</div></div><div class="item-price">$ 26.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Estate Malbec</div></div><div class="item-price">$ 22.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Estate Torrontés</div></div><div class="item-price">$ 22.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Amalaya Gran Corte</div></div><div class="item-price">$ 20.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Amalaya Malbec</div></div><div class="item-price">$ 12.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Intocables Malbec</div></div><div class="item-price">$ 16.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alma Mora Malbec</div></div><div class="item-price">$ 11.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alma Mora Viognier Dulce</div></div><div class="item-price">$ 11.000</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Terra Camiare · Bodega</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/laperdices.png" alt="Viña Las Perdices"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Ovum Cabernet Franc</div></div><div class="item-price">$ 18.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Ovum Malbec</div></div><div class="item-price">$ 18.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Socavones Reserva Malbec</div></div><div class="item-price">$ 16.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Socavones Reserva Cabernet - Cabernet</div></div><div class="item-price">$ 16.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Navira Malbec</div></div><div class="item-price">$ 13.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Indama Rosado de Isabella</div></div><div class="item-price">$ 15.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Exploración Malbec</div></div><div class="item-price">$ 28.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Exploración Albariño</div></div><div class="item-price">$ 25.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Alas Colorada Cabernet Franc</div></div><div class="item-price">$ 25.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 20.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Pinot Noir</div></div><div class="item-price">$ 20.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Varietal Malbec</div></div><div class="item-price">$ 14.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Varietal Sauvignon Blanc</div></div><div class="item-price">$ 14.200</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Varietal Torrontés Dulce</div></div><div class="item-price">$ 14.200</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Callia</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/trivento.png" alt="Bodega Trivento"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Pyros Appellation Malbec</div></div><div class="item-price">$ 19.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Tardio Blanco Dulce</div></div><div class="item-price">$ 9.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Chardonnay</div></div><div class="item-price">$ 9.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Syrah</div></div><div class="item-price">$ 9.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Malbec</div></div><div class="item-price">$ 9.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Golden Reserva Malbec</div></div><div class="item-price">$ 26.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Golden Reserva Cabernet Sauvignon</div></div><div class="item-price">$ 26.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">White Malbec</div></div><div class="item-price">$ 13.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Casillero del Diablo Malbec</div></div><div class="item-price">$ 13.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Casillero del Diablo Red Blend</div></div><div class="item-price">$ 13.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Casillero del Diablo Chardonnay</div></div><div class="item-price">$ 13.800</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Bodega El Esteco</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/terrazas.png" alt="Terrazas de los Andes"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">El Esteco Blend de Extremo Malbec</div></div><div class="item-price">$ 22.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Reserva Malbec</div></div><div class="item-price">$ 17.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Reserva Sauvignon Blanc</div></div><div class="item-price">$ 17.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Malbec</div></div><div class="item-price">$ 13.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Don David Torrontés</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Grand Cabernet Sauvignon</div></div><div class="item-price">$ 93.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Grand Malbec</div></div><div class="item-price">$ 93.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Terr Appellation Malbec Las Compuertas</div></div><div class="item-price">$ 42.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Cabernet Sauvignon</div></div><div class="item-price">$ 34.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Chardonnay</div></div><div class="item-price">$ 34.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 34.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec Rosé</div></div><div class="item-price">$ 34.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Altos del Plata Cabernet Sauvignon</div></div><div class="item-price">$ 19.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Altos del Plata Chardonnay</div></div><div class="item-price">$ 19.900</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Altos del Plata Malbec / Syrah</div></div><div class="item-price">$ 19.900</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Finca Las Moras</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/latitud33.png" alt="Latitud 33°"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Intocables Malbec</div></div><div class="item-price">$ 16.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Alma Mora Malbec</div></div><div class="item-price">$ 10.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Alma Mora Viognier Dulce</div></div><div class="item-price">$ 10.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Cabernet Sauvignon</div></div><div class="item-price">$ 14.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Chardonnay</div></div><div class="item-price">$ 14.700</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Malbec</div></div><div class="item-price">$ 14.700</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Viña Las Perdices</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/septima.png" alt="Bodega Septima"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Exploración Malbec</div></div><div class="item-price">$ 27.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Exploración Albariño</div></div><div class="item-price">$ 24.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Alas Colorada Cabernet Franc</div></div><div class="item-price">$ 24.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Malbec</div></div><div class="item-price">$ 19.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Reserva Pinot Noir</div></div><div class="item-price">$ 19.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Varietal Malbec</div></div><div class="item-price">$ 13.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Varietal Sauvignon Blanc</div></div><div class="item-price">$ 13.500</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Varietal Torrontés Dulce</div></div><div class="item-price">$ 13.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Gran Reserva Blend</div></div><div class="item-price">$ 33.600</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Tierra Malbec Gualtallary</div></div><div class="item-price">$ 22.600</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Obra Malbec</div></div><div class="item-price">$ 19.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Obra Cabernet Franc</div></div><div class="item-price">$ 19.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Emblema Sauvignon Blanc</div></div><div class="item-price">$ 15.300</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Emblema Malbec</div></div><div class="item-price">$ 15.300</div></div>
       </div>
     </div>
 
     <div class="wine-bodega">
-      <p class="wine-bodega-name">Trivento</p>
+      <div class="wine-bodega-header"><img class="wine-bodega-logo" src="fotos/vinos/colome.png" alt="Colomé · Desde 1831"></div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="item-left"><div class="item-name">Golden Reserva Malbec</div></div><div class="item-price">$ 25.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Golden Reserva Cabernet Sauvignon</div></div><div class="item-price">$ 25.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">White Malbec</div></div><div class="item-price">$ 13.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Casillero del Diablo Malbec</div></div><div class="item-price">$ 13.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Casillero del Diablo Red Blend</div></div><div class="item-price">$ 13.000</div></div>
-        <div class="menu-item"><div class="item-left"><div class="item-name">Casillero del Diablo Chardonnay</div></div><div class="item-price">$ 13.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">El Arenal</div></div><div class="item-price">$ 43.000</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">El Auténtico</div></div><div class="item-price">$ 27.800</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Estate Malbec</div></div><div class="item-price">$ 23.600</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Estate Torrontés</div></div><div class="item-price">$ 23.600</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Amalaya Gran Corte</div></div><div class="item-price">$ 21.500</div></div>
+        <div class="menu-item"><div class="item-left"><div class="item-name">Amalaya Malbec</div></div><div class="item-price">$ 12.600</div></div>
       </div>
     </div>
   </div>
@@ -1114,20 +1158,20 @@
   <div id="tab-espumantes" class="menu-panel">
     <p class="menu-category-title">Espumantes</p>
     <div class="menu-grid">
-      <div class="menu-item"><div class="item-left"><div class="item-name">Baron B Brut Nature</div></div><div class="item-price">$ 75.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Baron B Extra Brut</div></div><div class="item-price">$ 56.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Chandon Cuveé Reserve Blanc de Blancs</div></div><div class="item-price">$ 49.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Chandon Extra Brut</div></div><div class="item-price">$ 31.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Chandon Delice</div></div><div class="item-price">$ 31.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Nieto Senetiner Brut Nature</div></div><div class="item-price">$ 22.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Blanc de Blancs</div></div><div class="item-price">$ 20.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Salentein Brut Rosé / Brut Nature</div></div><div class="item-price">$ 22.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Classic Cuveé</div></div><div class="item-price">$ 19.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Maria Codorniu Brut Nature / Extra Brut</div></div><div class="item-price">$ 19.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Navarro Correa Extra Brut</div></div><div class="item-price">$ 18.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Alyda Van Salentein Milessime</div></div><div class="item-price">$ 29.500</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Las Perdices Brut Rosé</div></div><div class="item-price">$ 19.000</div></div>
-      <div class="menu-item"><div class="item-left"><div class="item-name">Las Perdices Método Tradicional Brut Nature</div></div><div class="item-price">$ 28.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Baron B Brut Nature</div></div><div class="item-price">$ 79.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Baron B Extra Brut</div></div><div class="item-price">$ 59.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chandon Cuveé Reserve Blanc de Blancs</div></div><div class="item-price">$ 51.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chandon Extra Brut</div></div><div class="item-price">$ 32.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Chandon Delice</div></div><div class="item-price">$ 32.500</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Nieto Senetiner Brut Nature</div></div><div class="item-price">$ 23.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Alambrado Blanc de Blancs</div></div><div class="item-price">$ 21.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Salentein Brut Rosé / Brut Nature</div></div><div class="item-price">$ 23.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Santa Julia Classic Cuveé</div></div><div class="item-price">$ 20.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Maria Codorniu Brut Nature / Extra Brut</div></div><div class="item-price">$ 20.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Navarro Correa Extra Brut</div></div><div class="item-price">$ 19.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Alyda Van Salentein Milessime</div></div><div class="item-price">$ 31.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Las Perdices Brut Rosé</div></div><div class="item-price">$ 20.000</div></div>
+      <div class="menu-item"><div class="item-left"><div class="item-name">Las Perdices Método Tradicional Brut Nature</div></div><div class="item-price">$ 29.800</div></div>
     </div>
   </div>
 
@@ -1212,13 +1256,6 @@
 </div>
 
 <script>
-  function showTab(id, btn) {
-    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + id).classList.add('active');
-    btn.classList.add('active');
-  }
-
   function openModal() {
     document.getElementById('modal').classList.add('open');
     document.body.style.overflow = 'hidden';
