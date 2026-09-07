@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rancho Viejo — Fábrica de Pastas</title>
+  <link rel="icon" href="../logo.png" />
+  <style>
+    /* ── Variables ── */
+    :root {
+      --brown:      #5a3a1a;
+      --brown-mid:  #7a5230;
+      --brown-light:#b08050;
+      --cream:      #f5efe6;
+      --cream-dark: #ede4d6;
+      --text:       #3a2810;
+      --white:      #ffffff;
+      --overlay:    rgba(30,15,5,0.55);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-image: url('../pastas.jpg');
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--overlay);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding-bottom: 80px;
+    }
+
+    .hero-logo {
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .hero-logo img {
+      width: 340px;
+      max-width: 80vw;
+      height: auto;
+      display: block;
+      mix-blend-mode: screen;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 2px;
+      background: rgba(255,255,255,0.5);
+      margin: 22px auto;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .btn {
+      position: relative;
+      padding: 16px 38px;
+      cursor: pointer;
+      font-family: 'Georgia', serif;
+      font-size: 0.9rem;
+      font-weight: bold;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      border-radius: 50px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #fbf4e6 0%, #e6d3a8 100%);
+      color: var(--brown);
+      box-shadow: 0 7px 16px rgba(20,10,0,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(180deg, #fffaf0 0%, #efdcb0 100%);
+      transform: translateY(1px);
+      box-shadow: 0 4px 10px rgba(20,10,0,0.3);
+    }
+    .btn-primary:active { transform: translateY(3px); box-shadow: none; }
+
+    .btn-whatsapp {
+      background: linear-gradient(180deg, #2fae5c 0%, #1e7d40 100%);
+      color: var(--white);
+      box-shadow: 0 7px 16px rgba(20,10,0,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-whatsapp:hover {
+      background: linear-gradient(180deg, #34bd65 0%, #228a47 100%);
+      transform: translateY(1px);
+      box-shadow: 0 4px 10px rgba(20,10,0,0.3);
+    }
+    .btn-whatsapp:active { transform: translateY(3px); box-shadow: none; }
+
+    .hero-info {
+      margin-top: 36px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.88rem;
+      letter-spacing: 1px;
+      line-height: 1.9;
+    }
+    .hero-info a { color: rgba(255,255,255,0.85); text-decoration: underline; }
+
+    /* ── NAV / SCROLL ANCHOR ── */
+    .scroll-down {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .scroll-down span { display: block; font-size: 1.2rem; animation: bounce 2s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    /* ── CARTA SECTION ── */
+    #carta {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 24px 80px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin-bottom: 10px;
+    }
+    .section-title-line {
+      width: 60px;
+      height: 2px;
+      background: var(--brown-light);
+      margin: 0 auto 40px;
+    }
+
+    /* ── QUICK NAV ── */
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 20px;
+      margin-bottom: 50px;
+      padding: 18px 16px;
+      border-top: 1px solid var(--cream-dark);
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .quick-nav a {
+      color: var(--brown-mid);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color 0.2s;
+      padding: 6px 18px;
+      border: 1px solid var(--brown-light);
+      border-radius: 20px;
+    }
+    .quick-nav a:hover { color: var(--white); background: var(--brown-light); }
+
+    /* ── MENU PANEL ── */
+    .menu-panel {
+      display: block;
+      padding-top: 46px;
+      margin-top: 46px;
+      border-top: 1px dashed var(--brown-light);
+      scroll-margin-top: 20px;
+    }
+    .menu-panel:first-of-type {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: none;
+    }
+
+    .menu-panel-title {
+      text-align: center;
+      font-size: 1.3rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--brown);
+      padding: 12px 20px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .menu-panel-note {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--brown-light);
+      font-style: italic;
+      margin-bottom: 30px;
+    }
+
+    .menu-category-title {
+      font-size: 1.3rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin-bottom: 6px;
+      margin-top: 28px;
+      font-style: italic;
+    }
+    .menu-category-title:first-of-type { margin-top: 0; }
+    .menu-note {
+      font-size: 0.83rem;
+      color: var(--brown-light);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px dotted #d4c4a8;
+    }
+    .menu-item:last-child { border-bottom: none; }
+
+    .item-left { flex: 1; }
+    .item-name {
+      font-size: 0.88rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: bold;
+    }
+    .item-desc {
+      font-size: 0.8rem;
+      color: var(--brown-mid);
+      font-style: italic;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+    .item-price {
+      font-size: 0.85rem;
+      color: var(--brown);
+      white-space: nowrap;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      min-width: 150px;
+      text-align: right;
+    }
+    .item-price .tag {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: normal;
+      color: var(--brown-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      background: var(--brown);
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      padding: 50px 24px 40px;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../pastas.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    footer > * {
+      position: relative;
+      z-index: 1;
+    }
+    footer .contact-row { margin-bottom: 8px; font-size: 0.92rem; }
+    footer a { color: rgba(255,255,255,0.85); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+    footer .footer-divider { width: 50px; height: 1px; background: rgba(255,255,255,0.3); margin: 24px auto; }
+    footer .address { font-size: 0.88rem; opacity: 0.7; letter-spacing: 1px; }
+
+    /* ── CARRUSEL ── */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 10px;
+      padding: 0 10px;
+      transition: transform 0.6s ease;
+    }
+    .carousel-track img {
+      width: 260px;
+      height: 260px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border-radius: 3px;
+      display: block;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      font-size: 1.6rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .carousel-btn:hover { background: rgba(0,0,0,0.8); }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .carousel-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carousel-dots span.active { background: rgba(255,255,255,0.9); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn { width: 260px; justify-content: center; }
+
+      #carta { padding: 50px 16px 60px; }
+
+      .quick-nav { gap: 8px 12px; padding: 14px 10px; margin-bottom: 36px; }
+      .quick-nav a { font-size: 0.75rem; padding: 6px 14px; }
+
+      .item-name { font-size: 0.85rem; }
+      .item-desc { font-size: 0.77rem; }
+      .item-price { font-size: 0.8rem; min-width: 110px; }
+
+      .menu-category-title { font-size: 1.1rem; }
+
+      .carousel-track img { width: 180px; height: 180px; }
+
+      footer { padding: 40px 16px 30px; }
+      footer .contact-row { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════ HERO ════════════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <a href="../index.html" style="display:inline-block; color:rgba(255,255,255,0.75); font-size:0.78rem; letter-spacing:2px; text-transform:uppercase; text-decoration:none; margin-bottom:22px; border-bottom:1px solid rgba(255,255,255,0.4); padding-bottom:2px;">‹ Elegir otra sede</a>
+    <div class="hero-logo"><img src="../logo.png" alt="Rancho Viejo" /></div>
+    <p style="color:rgba(255,255,255,0.85); letter-spacing:4px; text-transform:uppercase; font-size:0.85rem; margin-top:-10px; margin-bottom:18px; font-style:italic;">
+      Fábrica de Pastas · Pastas con historia
+      <a href="https://www.google.com/maps/search/?api=1&query=Av.+Carlos+F.+Gauss+5488+Local+5%2C+C%C3%B3rdoba" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85); letter-spacing:1.5px; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.5); padding-bottom:1px; margin-left:8px; white-space:nowrap;">📍 Cómo llegar</a>
+    </p>
+    <div class="hero-divider"></div>
+
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="https://www.instagram.com/pastas.ranchoviejo/" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        @pastas.ranchoviejo
+      </a>
+      <a class="btn btn-whatsapp"
+         href="https://wa.link/wzp8e2"
+         target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.858L.057 23.625a.75.75 0 0 0 .918.918l5.767-1.475A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.9 0-3.68-.512-5.21-1.4l-.374-.22-3.877.99.992-3.877-.22-.374A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        Pedidos por WhatsApp
+      </a>
+    </div>
+
+    <div class="hero-info">
+      📍 Av. Carlos F. Gauss 5488, Local 5 &nbsp;·&nbsp; 📞 <a href="tel:3516534898">351 653 4898</a>
+    </div>
+  </div>
+
+  <div class="scroll-down" onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})">
+    Ver carta<br><span>▾</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════ CARTA ════════════════════════════ -->
+<section id="carta">
+  <h2 class="section-title">Nuestra Carta</h2>
+  <div class="section-title-line"></div>
+  <div style="max-width:900px; margin:0 auto;">
+    <iframe src="carta.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="Carta Fábrica de Pastas Rancho Viejo"
+      style="width:100%; height:82vh; min-height:520px; max-height:1000px; border:1px solid var(--brown-light); border-radius:6px; display:block; box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+    </iframe>
+    <p style="text-align:center; margin-top:14px; font-size:0.82rem; color:var(--brown-mid);">
+      ¿No ves la carta arriba? <a href="carta.pdf" target="_blank" rel="noopener" style="color:var(--brown); text-decoration:underline;">Abrila en una pestaña nueva</a>
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════ CARRUSEL ════════════════════════════ -->
+<section id="galeria" style="background:#1a0f05; padding:60px 0 40px;">
+  <h2 style="text-align:center; color:#f5efe6; font-size:clamp(1.2rem,3vw,1.8rem); letter-spacing:5px; text-transform:uppercase; margin-bottom:30px; font-family:Georgia,serif;">Nuestras Pastas</h2>
+  <div class="carousel-container">
+    <button class="carousel-btn prev" onclick="moveCarousel(-1)">&#8249;</button>
+    <div class="carousel-track" id="carouselTrack">
+      <img loading="lazy" src="fotos/foto1.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto2.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto3.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto4.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto5.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto6.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto7.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto8.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto9.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto10.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto11.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto12.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto13.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto14.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto15.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto16.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto17.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto18.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto19.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+      <img loading="lazy" src="fotos/foto20.jpg" alt="Fábrica de Pastas Rancho Viejo" />
+    </div>
+    <button class="carousel-btn next" onclick="moveCarousel(1)">&#8250;</button>
+  </div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</section>
+
+<!-- ════════════════════════════ FOOTER ════════════════════════════ -->
+<footer>
+  <img src="../logo.png" alt="Rancho Viejo" style="width:220px; max-width:70vw; mix-blend-mode:screen; margin-bottom:16px;" />
+
+  <div class="contact-row">📍 Av. Carlos F. Gauss 5488, Local 5, Córdoba, Argentina</div>
+  <div class="contact-row">📞 <a href="tel:3516534898">351 653 4898</a></div>
+  <div class="contact-row">📷 <a href="https://www.instagram.com/pastas.ranchoviejo/" target="_blank" rel="noopener">@pastas.ranchoviejo</a></div>
+
+  <div class="footer-divider"></div>
+
+  <a class="btn btn-whatsapp"
+     href="https://wa.link/wzp8e2"
+     target="_blank" rel="noopener"
+     style="display:inline-flex; margin-bottom:24px;">
+    Pedidos por WhatsApp
+  </a>
+
+  <p class="address">Pastas artesanales congeladas y listas para comer</p>
+</footer>
+
+<script>
+  // ── CARRUSEL ──
+  const track = document.getElementById('carouselTrack');
+  const dotsContainer = document.getElementById('carouselDots');
+  const imgs = track.querySelectorAll('img');
+  const total = imgs.length;
+  let current = 0;
+  let autoPlay;
+
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => { clearInterval(autoPlay); goTo(i); startAutoPlay(); });
+    dotsContainer.appendChild(dot);
+  }
+
+  function goTo(index) {
+    current = (index + total) % total;
+    const imgWidth = imgs[0].offsetWidth + 10;
+    track.style.transform = `translateX(-${current * imgWidth}px)`;
+    document.querySelectorAll('.carousel-dots span').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function moveCarousel(dir) {
+    clearInterval(autoPlay);
+    goTo(current + dir);
+    startAutoPlay();
+  }
+
+  function startAutoPlay() {
+    autoPlay = setInterval(() => goTo(current + 1), 3500);
+  }
+
+  startAutoPlay();
+</script>
+
+</body>
+</html>
