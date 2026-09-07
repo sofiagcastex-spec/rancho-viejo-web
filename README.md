@@ -72,6 +72,20 @@ Además:
 
 ---
 
+## Cómo se muestra la carta
+
+En cada página hay un botón **Ver la carta completa** que despliega el PDF hacia abajo,
+página por página, tal cual está diseñado. Se puede scrollear y hacer zoom con los dedos.
+
+Antes la carta iba metida en un recuadro y en el celular se veía una sola hoja cortada.
+Ahora la dibuja el visor que está en la carpeta `pdfjs/`. **Esa carpeta no se toca ni se borra**:
+si desaparece, el botón deja de mostrar la carta y solo queda el link para abrir el PDF aparte.
+
+Vos seguís actualizando igual que siempre: reemplazás `carta.pdf` y listo, el visor toma
+el archivo nuevo automáticamente, con la cantidad de páginas que tenga.
+
+---
+
 ## Cuidado con el peso de los PDF
 
 Las cartas que exporta Canva pesan 17-18 MB. Así como salen, en un celular con datos
@@ -99,6 +113,7 @@ fondo.jpg               → fondo del encabezado
 logo.png                → logo Rancho Viejo
 pastas.jpg              → foto del bloque "Fábrica de Pastas"
 fotos/                  → galería de fotos del restaurante (se usa en las dos sedes)
+pdfjs/                  → visor de cartas. NO TOCAR ni borrar.
 
 neper/
   index.html                  → página de la sucursal

@@ -383,6 +383,67 @@
     }
     .carousel-dots span.active { background: rgba(255,255,255,0.9); }
 
+
+    /* -- VISOR DE CARTA PDF (paginas apiladas, funciona en celular) -- */
+    .pdf-viewer[hidden] { display: none; }
+    .pdf-viewer {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 200px;
+      margin-top: 34px;
+    }
+    .pdf-page {
+      width: 100%;
+      background: var(--white);
+      border: 1px solid var(--brown-light);
+      border-radius: 4px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+    .pdf-page canvas { display: block; width: 100%; height: auto; }
+    .pdf-status {
+      text-align: center;
+      padding: 50px 16px;
+      color: var(--brown-mid);
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+    }
+
+    .pdf-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 34px;
+      background: var(--brown);
+      color: var(--cream);
+      border: none;
+      border-radius: 30px;
+      font-family: Georgia, serif;
+      font-size: 0.82rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    }
+    .pdf-toggle:hover { background: var(--brown-mid); transform: translateY(-2px); }
+    .pdf-toggle .arrow { display: inline-block; transition: transform 0.25s; font-size: 1rem; }
+    .pdf-toggle.open .arrow { transform: rotate(180deg); }
+    .pdf-open-btn {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 14px 30px;
+      border: 1.5px solid var(--brown);
+      border-radius: 30px;
+      color: var(--brown);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .pdf-open-btn:hover { background: var(--brown); color: var(--white); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .hero-buttons { flex-direction: column; align-items: center; }
@@ -450,11 +511,14 @@
   <h2 class="section-title">Nuestra Carta</h2>
   <div class="section-title-line"></div>
   <div style="max-width:900px; margin:0 auto;">
-    <iframe src="carta.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="Carta Fábrica de Pastas Rancho Viejo"
-      style="width:100%; height:82vh; min-height:520px; max-height:1000px; border:1px solid var(--brown-light); border-radius:6px; display:block; box-shadow:0 8px 24px rgba(0,0,0,0.12);">
-    </iframe>
-    <p style="text-align:center; margin-top:14px; font-size:0.82rem; color:var(--brown-mid);">
-      ¿No ves la carta arriba? <a href="carta.pdf" target="_blank" rel="noopener" style="color:var(--brown); text-decoration:underline;">Abrila en una pestaña nueva</a>
+    <div style="text-align:center;">
+      <button class="pdf-toggle" type="button" data-target="cartaViewer">
+        <span class="label">Ver la carta completa</span><span class="arrow">&#9662;</span>
+      </button>
+    </div>
+    <div class="pdf-viewer" id="cartaViewer" data-pdf="carta.pdf" hidden></div>
+    <p style="text-align:center; margin-top:18px; font-size:0.82rem; color:var(--brown-mid);">
+      También podés <a href="carta.pdf" target="_blank" rel="noopener" style="color:var(--brown); text-decoration:underline;">abrir la carta en PDF</a>
     </p>
   </div>
 </section>
@@ -547,6 +611,99 @@
   }
 
   startAutoPlay();
+</script>
+
+
+<!-- VISOR DE CARTA (PDF.js) -->
+<script>
+(function () {
+  var LIB = '../pdfjs/pdf.min.js';
+  var WORKER = '../pdfjs/pdf.worker.min.js';
+  var btn = document.querySelector('.pdf-toggle');
+  if (!btn) return;
+  var box = document.getElementById(btn.getAttribute('data-target'));
+  var label = btn.querySelector('.label');
+  var loaded = false, loading = false;
+
+  btn.addEventListener('click', function () {
+    if (box.hidden) {
+      box.hidden = false;
+      btn.classList.add('open');
+      label.textContent = 'Ocultar la carta';
+      if (!loaded && !loading) { loading = true; start(); }
+    } else {
+      box.hidden = true;
+      btn.classList.remove('open');
+      label.textContent = 'Ver la carta completa';
+      btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+
+  function fallback() {
+    box.innerHTML = '<div class="pdf-status">No se pudo mostrar la carta aca.<br>' +
+      '<a class="pdf-open-btn" href="' + box.getAttribute('data-pdf') + '" target="_blank" rel="noopener">Abrir la carta en PDF</a></div>';
+  }
+
+  function start() {
+    box.innerHTML = '<div class="pdf-status">Cargando la carta…</div>';
+    var s = document.createElement('script');
+    s.src = LIB;
+    s.onerror = function () { loading = false; fallback(); };
+    s.onload = function () {
+      if (!window.pdfjsLib) { loading = false; return fallback(); }
+      pdfjsLib.GlobalWorkerOptions.workerSrc = WORKER;
+      build();
+    };
+    document.head.appendChild(s);
+  }
+
+  function draw(wrap) {
+    var page = wrap.__page;
+    if (!page || wrap.__drawn) return;
+    wrap.__drawn = true;
+    var base = page.getViewport({ scale: 1 });
+    var cssW = wrap.clientWidth || 800;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var targetW = Math.min(Math.max(cssW * dpr, 1200), 2200);
+    var vp = page.getViewport({ scale: targetW / base.width });
+    var canvas = document.createElement('canvas');
+    canvas.width = Math.round(vp.width);
+    canvas.height = Math.round(vp.height);
+    wrap.appendChild(canvas);
+    page.render({ canvasContext: canvas.getContext('2d'), viewport: vp });
+  }
+
+  function build() {
+    pdfjsLib.getDocument(box.getAttribute('data-pdf')).promise.then(function (pdf) {
+      loaded = true; loading = false;
+      box.innerHTML = '';
+      var io = null;
+      if ('IntersectionObserver' in window) {
+        io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { io.unobserve(e.target); draw(e.target); }
+          });
+        }, { rootMargin: '800px 0px' });
+      }
+      var chain = Promise.resolve();
+      for (var i = 1; i <= pdf.numPages; i++) chain = chain.then(step(pdf, io, i));
+    }).catch(function () { loading = false; fallback(); });
+  }
+
+  function step(pdf, io, n) {
+    return function () {
+      return pdf.getPage(n).then(function (page) {
+        var vp = page.getViewport({ scale: 1 });
+        var wrap = document.createElement('div');
+        wrap.className = 'pdf-page';
+        wrap.style.aspectRatio = vp.width + ' / ' + vp.height;
+        wrap.__page = page;
+        box.appendChild(wrap);
+        if (io) io.observe(wrap); else draw(wrap);
+      });
+    };
+  }
+})();
 </script>
 
 </body>
